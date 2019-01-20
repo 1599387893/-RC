@@ -1,0 +1,18 @@
+﻿生成启动时间为 2019/1/15 18:15:17。
+     1>项目“C:\Users\administration\Desktop\常用\比特作业\c语言期间的函数实现\模拟实现strcpy\模拟实现strcpy\模拟实现strcpy.vcxproj”在节点 2 上(Build 个目标)。
+     1>ClCompile:
+         C:\Program Files (x86)\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TC /analyze- /errorReport:prompt my_strcpy.c
+         my_strcpy.c
+     1>c:\users\administration\desktop\常用\比特作业\c语言期间的函数实现\模拟实现strcpy\模拟实现strcpy\my_strcpy.c(7): warning C4047: “初始化”:“char”与“char [3]”的间接级别不同
+     1>c:\users\administration\desktop\常用\比特作业\c语言期间的函数实现\模拟实现strcpy\模拟实现strcpy\my_strcpy.c(8): warning C4047: “初始化”:“char”与“char [7]”的间接级别不同
+     1>c:\users\administration\desktop\常用\比特作业\c语言期间的函数实现\模拟实现strcpy\模拟实现strcpy\my_strcpy.c(9): warning C4047: “函数”:“char *”与“char”的间接级别不同
+     1>c:\users\administration\desktop\常用\比特作业\c语言期间的函数实现\模拟实现strcpy\模拟实现strcpy\my_strcpy.c(9): warning C4024: “strcpy”: 形参和实参 1 的类型不同
+     1>c:\users\administration\desktop\常用\比特作业\c语言期间的函数实现\模拟实现strcpy\模拟实现strcpy\my_strcpy.c(9): warning C4047: “函数”:“const char *”与“char”的间接级别不同
+     1>c:\users\administration\desktop\常用\比特作业\c语言期间的函数实现\模拟实现strcpy\模拟实现strcpy\my_strcpy.c(9): warning C4024: “strcpy”: 形参和实参 2 的类型不同
+     1>c:\users\administration\desktop\常用\比特作业\c语言期间的函数实现\模拟实现strcpy\模拟实现strcpy\my_strcpy.c(9): error C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\vc\include\string.h(112) : 参见“strcpy”的声明
+     1>已完成生成项目“C:\Users\administration\Desktop\常用\比特作业\c语言期间的函数实现\模拟实现strcpy\模拟实现strcpy\模拟实现strcpy.vcxproj”(Build 个目标)的操作 - 失败。
+
+生成失败。
+
+已用时间 00:00:00.24
