@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.21005.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "链表改成所有小于x的结点排在大于或等于x的结点之前", "链表改成所有小于x的结点排在大于或等于x的结点之前\链表改成所有小于x的结点排在大于或等于x的结点之前.vcxproj", "{7778B80C-11AB-4EAB-8A7D-0D9DA6F604DA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7778B80C-11AB-4EAB-8A7D-0D9DA6F604DA}.Debug|Win32.ActiveCfg = Debug|Win32
+		{7778B80C-11AB-4EAB-8A7D-0D9DA6F604DA}.Debug|Win32.Build.0 = Debug|Win32
+		{7778B80C-11AB-4EAB-8A7D-0D9DA6F604DA}.Release|Win32.ActiveCfg = Release|Win32
+		{7778B80C-11AB-4EAB-8A7D-0D9DA6F604DA}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
