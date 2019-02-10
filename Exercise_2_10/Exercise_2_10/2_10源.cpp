@@ -113,4 +113,32 @@
 #include<iostream>
 using namespace std;
 
-class 
+class A
+{
+	public:
+		A(){cout<<"构造A"<<endl;}
+		~A(){cout<<"析构A"<<endl;}
+ } ;
+class B:public A
+{
+ 	public:
+	 	B(){cout<<"构造B"<<endl;}	
+		 ~B(){cout<<"析构B"<<endl;}
+};
+class C:public B
+{
+	public:
+		C(){cout<<"构造c"<<endl;}	
+		~C(){cout<<"析构c"<<endl;}
+};
+
+int main ()
+{
+	C obj;
+
+	
+	return 0;
+}
+
+
+
