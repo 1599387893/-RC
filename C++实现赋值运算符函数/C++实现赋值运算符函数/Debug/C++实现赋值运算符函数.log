@@ -1,0 +1,12 @@
+﻿生成启动时间为 2019/2/11 18:42:48。
+     1>项目“C:\Users\administration\Desktop\Test\C++实现赋值运算符函数\C++实现赋值运算符函数\C++实现赋值运算符函数.vcxproj”在节点 2 上(Rebuild 个目标)。
+     1>ClCompile:
+         C:\Program Files (x86)\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt "赋值运算函数.cpp"
+         赋值运算函数.cpp
+     1>c:\users\administration\desktop\test\c++实现赋值运算符函数\c++实现赋值运算符函数\赋值运算函数.cpp(16): error C2600: “CMyString::operator =”: 不能定义编译器生成的特殊成员函数(必须首先在类中声明)
+     1>c:\users\administration\desktop\test\c++实现赋值运算符函数\c++实现赋值运算符函数\赋值运算函数.cpp(27): error C2600: “CMyString::operator =”: 不能定义编译器生成的特殊成员函数(必须首先在类中声明)
+     1>已完成生成项目“C:\Users\administration\Desktop\Test\C++实现赋值运算符函数\C++实现赋值运算符函数\C++实现赋值运算符函数.vcxproj”(Rebuild 个目标)的操作 - 失败。
+
+生成失败。
+
+已用时间 00:00:02.77
