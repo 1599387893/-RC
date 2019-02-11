@@ -136,7 +136,6 @@ int main ()
 {
 	C obj;
 
-	
 	return 0;
 }
 
