@@ -28,7 +28,7 @@ public:
 		: Staff(nm, na, ra, bs, pr), deductRate(dr), personAmount(pa){}
 	void Wage() const
 	{
-		cout << "销售员工资为：" << basicSal + rateOfAttend * prize + deductRate * personAmount<<endl;
+		cout << "销售员工资为：" << Staff::basicSal + Staff::rateOfAttend * Staff::prize + deductRate * personAmount<<endl;
 	}
 };
 
@@ -42,7 +42,7 @@ public:
 		: Staff(nm, na, ra, bs, pr), totalDeductRate(td), totalAmount(ta){}
 	void Wage() const
 	{
-		cout << "经理工资为：" << basicSal + rateOfAttend * prize + totalAmount * totalDeductRate<<endl;
+		cout << "经理工资为：" << Staff::basicSal + Staff::rateOfAttend * Staff::prize + totalAmount * totalDeductRate<<endl;
 	}
 };
 
@@ -53,7 +53,7 @@ public:
 		: Saleman(nm, na, ra, bs, pr, dr, pa), Manager(nm, na, ra, bs, pr, td, ta){}
 	void Wage() const
 	{
-		cout << "销售经理工资为：" << basicSal + rateOfAttend * prize + totalAmount * totalDeductRate + deductRate * personAmount << endl;
+		cout << "销售经理工资为：" << Saleman::basicSal+ Saleman::rateOfAttend * Saleman::prize + Manager::totalAmount * ManagertotalDeductRate + deductRate * personAmount << endl;
 	}
 };
 
