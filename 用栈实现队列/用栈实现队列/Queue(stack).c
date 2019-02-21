@@ -53,6 +53,8 @@ void QueueInit(Queue* q)
 	StackInit(&q->_s1);
 	StackInit(&q->_s2);
 	q->_sizeQueue = 0;
+	q->_front = 0;
+	q->_rear = 0;
 }
 void QueueDestroy(Queue* q)
 {
@@ -62,6 +64,8 @@ void QueueDestroy(Queue* q)
 	StackDestroy(&q->_s1);
 	StackDestroy(&q->_s2);
 	q->_sizeQueue = 0;
+	q->_front = 0;
+	q->_rear = 0;
 }
 void QueuePush(Queue* q, Datatypedef val)
 {
@@ -72,13 +76,8 @@ void QueuePush(Queue* q, Datatypedef val)
 	//判断队列是否存满，当多于max_size时，无法pop
 	if (q->_sizeQueue == max_size)
 		return;
-	
-	//将插入的元素全部放入s2中
-	if (0 == q->_s2._sizeStack)
-	{
-		q->_front = val;
-	}
-	StackPush(&q->_s2, val);
+	//将插入的元素全部放入s1中
+	StackPush(&q->_s1, val);
 	q->_sizeQueue++;
 }
 void QueuePop(Queue* q)
@@ -90,14 +89,14 @@ void QueuePop(Queue* q)
 	//判空
 	if (0 == q->_sizeQueue)
 		return;
-	//pop时，将s1的元素放入s2中，留下s1的最后一个pop，再将s2的元素放入s1中
-	while (q->_s1._sizeStack > 1)
+
+	//pop时，将s1的元素放入s2中，再将s2的栈顶元素pop
+	while (q->_s1._sizeStack)
 	{
 		StackPop(&q->_s1, &temp);
 		StackPush(&q->_s2, temp);
 	}
-	StackPop(&q->_s1, &temp);//此时pop出s1的最后一个元素，即队列的第一个元素
-	temp = 0;
+	StackPop(&q->_s2,&temp);
 	while (q->_s2._sizeStack)
 	{
 		StackPop(&q->_s2, &temp);
@@ -112,7 +111,8 @@ Datatypedef QueueFront(Queue* q)
 		return -1;
 	if (0 == q->_sizeQueue)
 		return -1;
-	return q->_front;
+	q->_front = q->_s1._data[0];
+	return (q->_front);
 }
 Datatypedef QueueRear(Queue* q)
 {
@@ -122,7 +122,7 @@ Datatypedef QueueRear(Queue* q)
 	//判空
 	if (0 == q->_sizeQueue)
 		return -1;
-	return StackTop(&q->_s2);
+	return StackTop(&q->_s1);
 }
 int QueueSize(Queue* q)
 {
