@@ -26,9 +26,9 @@ private:
 	int r;
 public:
 	Circle(int a, int b, int c) :Shape(a, b), r(c){}
-	void Area()const 
+	void Area()const
 	{
-		cout << "圆的面积是：" << r*r*PI << endl; 
+		cout << "圆的面积是：" << r*r*PI << endl;
 		cout << "圆的周长为：" << fixed << setprecision(2) << r * 2 * PI << endl;
 	}
 };
@@ -40,7 +40,7 @@ private:
 	int y;
 public:
 	Square(int a, int b, int a1, int b1) :Shape(a, b), x(a1), y(b1){}
-	void Area()const 
+	void Area()const
 	{
 		int a;
 		if (x > Shape::GetCx())
