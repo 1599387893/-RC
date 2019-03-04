@@ -87,7 +87,7 @@ HPDateType TopHeap(Heap* hp)
 {
 	if (NULL == hp->_array)
 		return -1;
-	return hp->_array[0];
+	return hp->_array[hp->_size-1];
 }
 int SizeHeap(Heap* hp)
 {
@@ -103,4 +103,27 @@ int EmtpyHeap(Heap* hp)
 void AdjustUp(Heap* array, int size, int child)
 {
 	
+}
+
+
+
+
+
+//顺序问题 调整函数中元素的比较方式 
+int Less(HPDateType left, HPDateType right)
+{
+	return left < right;
+}
+int Greater(HPDateType left, HPDateType right)
+{
+	return left > right;
+}
+
+//堆排序
+void HeapSort(HPDateType* array, int size)
+{
+	//创建一个堆
+	//排序(运用堆的删除算法)
+		  //向下调整：升序--->大堆
+	      //向下调整：降序--->小堆
 }

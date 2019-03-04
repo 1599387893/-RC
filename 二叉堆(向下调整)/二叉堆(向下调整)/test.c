@@ -7,8 +7,15 @@ int main()
 	CreatHeap(&hp, array, sizeof(array) / sizeof(int));
 	printf("Top=%d\n",TopHeap(&hp));
 	printf("Size=%d\n", SizeHeap(&hp));
+
 	EraseHeap(&hp);
 	printf("top=%d\n", TopHeap(&hp));
+	printf("Size=%d\n", SizeHeap(&hp));
+
+	InsertHeap(&hp, 11);
+	printf("top=%d\n", TopHeap(&hp));
+	printf("Size=%d\n", SizeHeap(&hp));
+
 	HeapDestory(&hp);
 	system("pause");
 	return 0;
