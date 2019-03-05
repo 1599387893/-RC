@@ -18,4 +18,6 @@ void CreateBinTree(BTNode* pRoot,DateTypedef* array,int size);
 void PreOrder(BTNode* pRoot);
 void InOrder(BTNode* pRoot);
 void PostOrder(BTNode* pRoot);
+int BinTreeHeight(BTNode* pRoot);//树的高度
+int isBalanceTree(BTNode* pRoot);//平衡树
 

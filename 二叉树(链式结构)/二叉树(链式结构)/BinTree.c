@@ -14,7 +14,7 @@ void PreOrder(BTNode* pRoot)
 	assert(pRoot);
 	if (pRoot)
 	{
-		pRoot->_data;
+		printf("%c ", pRoot->_data);
 		PreOrder(pRoot->_pLeft);
 		PreOrder(pRoot->_pRight);
 	}
@@ -25,7 +25,7 @@ void InOrder(BTNode* pRoot)
 	if (pRoot)
 	{
 		InOrder(pRoot->_pLeft);
-		pRoot->_data;
+		printf("%c ", pRoot->_data);
 		InOrder(pRoot->_pRight);
 	}
 }
@@ -36,8 +36,28 @@ void PostOrder(BTNode* pRoot)
 	{
 		PostOrder(pRoot->_pLeft);
 		PostOrder(pRoot->_pRight);
-		pRoot->_data;
+		printf("%c ", pRoot->_data);
 	}
+}
+
+
+int TreeHeight(BTNode* pRoot)
+{
+
+}
+int BinTreeHeight(BTNode* pRoot)
+{
+	int leftHeight = 0;
+	int rightHeight = 0;
+	if (pRoot == NULL)
+		return 0;
+	leftHeight = TreeHeight(pRoot->_pLeft);
+	rightHeight = TreeHeight(pRoot->_pRight);
+	return (leftHeight > rightHeight ? leftHeight + 1 : rightHeight + 1);
+}
+int isBalanceTree(BTNode* pRoot)
+{
+
 }
 
 
@@ -49,12 +69,3 @@ void PostOrder(BTNode* pRoot)
 
 
 
-
-//OJ 前序遍历
-//1 给一个辅助空间(树中节点个数的大小---->求二叉树节点个数GetNodeCount函数)  
-//2 遍历树 
-
-
-//OJ 中序遍历
-
-//OJ 后序遍历
