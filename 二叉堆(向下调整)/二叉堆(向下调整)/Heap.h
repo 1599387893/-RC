@@ -23,6 +23,7 @@ void HeapDestory(Heap* hp);
 void InsertHeap(Heap* hp, HPDateType n);
 void EraseHeap(Heap* hp);
 HPDateType TopHeap(Heap* hp);
+HPDateType BackHeap(Heap* hp);
 int SizeHeap(Heap* hp);
 int EmtpyHeap(Heap* hp);
 
