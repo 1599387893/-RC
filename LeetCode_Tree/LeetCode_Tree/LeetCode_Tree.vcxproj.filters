@@ -27,5 +27,14 @@
     <ClCompile Include="两颗棵树是否相同.c">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="该树另一棵树的子树.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="二叉树的最大深度.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="平衡二叉树.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
