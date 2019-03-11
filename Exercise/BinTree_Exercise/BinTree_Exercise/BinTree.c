@@ -101,23 +101,15 @@ int isBalanced(BTNode* pRoot)
 			isBalanced(pRoot->_pRight);
 }
 //第K层节点个数
-int _getklevelnodecount(BTNode* pRoot, int k)
+int GetKLevelNodeCount(BTNode* pRoot, int k)
 {
-	if (k == 0)
-		return 1;
-	return (_getklevelnodecount(pRoot->_pLeft, k - 1)+_getklevelnodecount(pRoot->_pRight,k-1));
-}
-int GetKLevelNodeCount(BTNode* pRoot,int k)
-{
-	if (k < 0 || pRoot == NULL)
+	if (NULL == pRoot || k < 0)
 		return 0;
-	if (k > BinTreeHeight(pRoot))
-		return 0;
-	if (k == 0)
+	if (k == 1)
 		return 1;
-	return (_getklevelnodecount(pRoot->_pLeft, k - 1) + _getklevelnodecount(pRoot->_pRight, k - 1));
-	//return _getklevelnodecount(pRoot,k);
+	return GetKLevelNodeCount(pRoot->_pLeft, k - 1) + GetKLevelNodeCount(pRoot->_pRight, k - 1);
 }
+
 //叶子节点个数
 int GetLeafNodeCount(BTNode* pRoot)
 {
@@ -144,4 +136,42 @@ void DestroyBinTree(BTNode** pRoot)
 		free(*pRoot);
 		*pRoot = NULL;
 	}
+}
+//找到值为data的结点
+BTNode* FindNode(BTNode* pRoot, DataType data)
+{
+	if (NULL == pRoot)
+		return NULL;
+	if (pRoot->_data == data)
+		return pRoot;
+	if (NULL != FindNode(pRoot->_pLeft, data))
+		return FindNode(pRoot->_pLeft, data);
+	return FindNode(pRoot->_pRight, data);
+}
+//找到某一结点的双亲结点
+BTNode* GetNodeParent(BTNode* pRoot, BTNode* child)
+{
+	if (NULL == pRoot || NULL == child)
+		return NULL;
+	if (pRoot == child)
+		return NULL;
+	if (pRoot->_pLeft == child || pRoot->_pRight == child)
+		return pRoot;
+	return GetNodeParent(pRoot->_pLeft, child) || GetNodeParent(pRoot->_pRight, child);
+}
+//镜像树
+void Mirror(BTNode* pRoot)
+{
+	BTNode* temp = NULL;
+	if (NULL == pRoot)
+		return;
+	if (NULL == pRoot->_pLeft && NULL == pRoot->_pRight)
+		return;
+	//交换左右子树
+	temp = pRoot->_pLeft;
+	pRoot->_pLeft = pRoot->_pRight ;
+	pRoot->_pRight = temp;
+	//将左右子树的左右子树交换
+	Mirror(pRoot->_pLeft);
+	Mirror(pRoot->_pRight);
 }

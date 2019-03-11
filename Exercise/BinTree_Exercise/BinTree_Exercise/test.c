@@ -85,6 +85,9 @@ int main()
 	printf("该树总共节点数：%d\n", GetNodeCount(pRoot));
 	printf("该树叶子节点个数：%d\n", GetLeafNodeCount(pRoot));
 	printf("第三层结点个数：%d\n", GetKLevelNodeCount(pRoot, 3));
+	printf("查找值为C的结点：%c\n", FindNode(pRoot, 'C')->_data);
+	printf("查找值为C的双亲结点：%c\n", GetNodeParent(pRoot, FindNode(pRoot, 'C'))->_data);
+	Mirror(pRoot);
 	DestroyBinTree(&pRoot);
 	system("pause");
 	return 0;
