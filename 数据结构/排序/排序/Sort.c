@@ -18,22 +18,48 @@ void Swap(int* a, int* b)
 //≤Â»Î≈≈–Ú
 void InsertSort(int* array, int size)
 {
-	for (int i = 1; i < size; i++)
-	{
-		for (int j = i - 1; j >= 0;j--)
-		{
-			if (array[j] > array[i])
-			{
-				Swap(&(array[i]), (&array[j]));
-				i = j;
-			}
-		}
-	}
+	//2.0
+	//int i, j, k;
+	//for (i = 1; i < size; i++)
+	//{
+	//	for (j = i - 1; j >= 0;j--)
+	//		if (array[j] < array[i])
+	//			break;
+	//	if (j != i - 1)
+	//	{
+	//		int temp = array[i];
+	//		for (k = i - 1; k > j; k--)
+	//		{
+	//			array[k + 1] = array[k];
+	//		}
+	//		array[k + 1] = temp;
+	//	}
+	//}
+
+
+
+
+	//1.0
+	//for (int i = 1; i < size; i++)
+	//{
+	//	for (int j = i - 1; j >= 0;j--)
+	//	{
+	//		if (array[j] > array[i])
+	//		{
+	//			Swap(&(array[i]), (&array[j]));
+	//			i = j;
+	//		}
+	//	}
+	//}
 }
 //œ£∂˚≈≈–Ú
 void ShellSort(int* array, int size)
 {
-	///*int gap = 5;
+	int gap = size / 2;
+	for ()
+
+
+	//int gap = 5;
 	//for (int i = 0; i < size; i++)
 	//{
 	//	for (int j = gap; j < size; j++)
@@ -42,7 +68,7 @@ void ShellSort(int* array, int size)
 	//			Swap(&array[j], &array[j + gap]);
 	//	}
 	//	gap--;
-	//}*/
+	//}
 }
 //—°‘Ò≈≈–Ú
 void SelectionSort(int* array, int size)
