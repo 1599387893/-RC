@@ -50,10 +50,7 @@ int StackSize(Stack* ps)
 int StackEmpty(Stack* ps)
 {
 	assert(ps);
-	if (ps->size == 0)
-		return 0;
-	else
-		return 1;
+	return ps->size == -1; 
 }
 
 void StackDestroy(Stack* ps)
