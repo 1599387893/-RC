@@ -1,18 +1,19 @@
 #include<stdio.h>
 #include<assert.h>
 #include<malloc.h>
+#include<math.h>
 
-typedef char BTDataTypde;
+typedef char BTDataType;
 typedef struct BTNode
 {
-	BTDataTypde _data;
+	BTDataType _data;
 	struct BTNode* _pleft;
 	struct BTNode* _pright;
 }BTNode;
 
-BTNode* CreateBinTree(BTDataTypde* array, int size);//创建二叉树
+BTNode* CreateBinTree(BTDataType* array, int size);//创建二叉树
 BTNode* CopyBinTree(BTNode* pRoot);//二叉树的拷贝
-void Destroy(BTNode* pRoot);//二叉树的销毁
+void DestroyBinTree(BTNode* pRoot);//二叉树的销毁
 //二叉树的遍历(递归)
 void PreOrder(BTNode* pRoot);//前序遍历
 void InOrder(BTNode* pRoot);//中序遍历
@@ -28,5 +29,5 @@ int GetNodeCount(BTNode* pRoot);//树中节点个数
 int GetLeafNodeCount(BTNode* pRoot);//叶子节点个数
 int GetKLevelNodeCount(BTNode* pRoot,int k);//第K层节点个数
 BTNode* GetNodeParent(BTNode* pRoot,BTNode* child);//找到某个节点的双亲结点
-BTNode* GetNode(BTNode* pRoot,BTDataTypde data);//找到某个节点
+BTNode* GetNode(BTNode* pRoot,BTDataType data);//找到某个节点
 int Mirror(BTNode* pRoot);//镜像树
