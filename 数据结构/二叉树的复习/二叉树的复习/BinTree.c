@@ -76,10 +76,70 @@ void PostOrder(BTNode* pRoot)
 	}
 }
 //二叉树的遍历(非递归)
-void PreOrderNor(BTNode* pRoot);//前序遍历
-void InOrderNor(BTNode* pRoot);//中序遍历
-void PostOrderNor(BTNode* pRoot);//后序遍历
-void LevelOrder(BTNode* pRoot);//层序遍历
+//前序遍历
+void PreOrderNor(BTNode* pRoot)
+{
+	//BTNode* ptr = NULL;
+	//Stack s;
+	//StackInit(&s);
+	////先将根节点入栈
+	//StackPush(&s,pRoot);
+	//while (!StackEmpty(&s))
+	//{
+	//	//先将pRoot的左子树遍历
+	//	ptr = pRoot->_pleft;
+	//	while (ptr)
+	//	{
+	//		StackPush(&s, ptr);
+	//		ptr = ptr->_pleft;
+	//	}
+	//	while (!StackEmpty(&s))
+	//	{
+	//		if (NULL != ptr->_pright)
+	//		{
+	//			while (ptr)
+	//			{
+	//				StackPush(&s, ptr);
+	//			}
+	//		}
+	//		ptr = StackTop(&s);
+	//		printf("%c ", ptr->_data);
+	//		StackPop(&s);
+	//	}
+	//	//遍历右子树
+	//	ptr = pRoot->_pright;
+	//	while (ptr)
+	//	{
+	//		StackPush(&s, ptr);
+	//		ptr = ptr->_pright;
+	//	}
+	//	while (!StackEmpty(&s))
+	//	{
+	//		ptr = StackTop(&s);
+	//		printf("%c ", ptr->_data);
+	//		StackPop(&s);
+	//	}
+	//	
+	//		
+
+
+	//}
+}
+//中序遍历
+void InOrderNor(BTNode* pRoot)
+{
+
+}
+//后序遍历
+void PostOrderNor(BTNode* pRoot)
+{
+
+}
+//层序遍历
+void LevelOrder(BTNode* pRoot)
+{
+
+}
 
 //二叉树的深度
 int HeightBinTree(BTNode* pRoot)
@@ -93,7 +153,30 @@ int HeightBinTree(BTNode* pRoot)
 
 	return leftHeight > rightHeight ? leftHeight + 1 : rightHeight + 1;
 }
-//平衡树
+
+//2.0平衡树 O(N)
+int isBalanceTree_p(BTNode* pRoot,int* height)
+{
+	int IsLBalance = 0;//左平衡树的返回接受值
+	int IsRBalance = 0;//右平衡树的返回接受值
+	int LeftHeight = 0;//左子树高度
+	int RightHeight = 0;//右子树高度
+
+	if (NULL == pRoot)
+		return 1;
+
+	IsLBalance = isBalanceTree_p(pRoot->_pleft, &LeftHeight);
+	IsRBalance = isBalanceTree_p(pRoot->_pright, &RightHeight);
+	
+	if (IsLBalance && IsRBalance && (abs(RightHeight - LeftHeight) < 2))
+	{
+		*height = LeftHeight > RightHeight ? LeftHeight + 1 : RightHeight + 1;
+		return 1;
+	}
+
+	return 0;
+}
+//1.0平衡树 O(N^2)
 int isBalanceTree(BTNode* pRoot)
 {
 	if (NULL == pRoot)
@@ -127,7 +210,7 @@ int GetLeafNodeCount(BTNode* pRoot)
 //第K层节点个数
 int GetKLevelNodeCount(BTNode* pRoot, int k)
 {
-	if (k > HeightBinTree(pRoot) || NULL == pRoot || k < 0)
+	if (NULL == pRoot || k < 0)//当K大于层数时，可以满足
 		return 0;
 	if (k == 1)
 		return 1;
@@ -137,7 +220,7 @@ int GetKLevelNodeCount(BTNode* pRoot, int k)
 //找到某个节点的双亲结点
 BTNode* GetNodeParent(BTNode* pRoot, BTNode* child)
 {
-	if (NULL == pRoot)
+	if (NULL == pRoot || child == NULL)
 		return NULL;
 	if (pRoot == child)
 		return NULL;
@@ -171,3 +254,6 @@ int Mirror(BTNode* pRoot)
 		Mirror(pRoot->_pright);
 	}
 }
+
+int isSameTree();//两棵树是否相同
+//OJ题

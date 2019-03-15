@@ -64,9 +64,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\Queue\Queue 2.0\Queue.h" />
+    <ClInclude Include="..\..\Stack\Stack\Stack.h" />
     <ClInclude Include="BinTree.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\Queue\Queue 2.0\Queue.c" />
+    <ClCompile Include="..\..\Stack\Stack\Stack.c" />
     <ClCompile Include="BinTree.c" />
     <ClCompile Include="Test.c" />
   </ItemGroup>

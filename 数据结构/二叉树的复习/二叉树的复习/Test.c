@@ -10,7 +10,8 @@ int main()
 	//printf("\n后序遍历：");PostOrder(pRoot);
 	//printf("\n");
 	//printf("二叉树的高度是=%d\n", HeightBinTree(pRoot));
-	//printf("二叉树是不是平衡树=%d\n", isBalanceTree(pRoot));
+	printf("二叉树是不是平衡树=%d\n", isBalanceTree(pRoot));
+	printf("二叉树是不是平衡树=%d\n", isBalanceTree_p(pRoot));
 	//printf("二叉树的结点数=%d\n", GetNodeCount(pRoot));
 	//printf("二叉树的叶子结点数=%d\n", GetLeafNodeCount(pRoot));
 	//printf("二叉树K层的叶子结点数=%d\n", GetKLevelNodeCount(pRoot, 2));
@@ -21,5 +22,6 @@ int main()
 	Mirror(pRoot);
 
 	DestroyBinTree(pRoot);
+	system("pause");
 	return 0;
 }
