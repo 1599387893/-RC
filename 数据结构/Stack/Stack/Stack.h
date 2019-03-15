@@ -11,9 +11,10 @@ typedef struct Stack
 	int Capacity;
 	int size;
 }Stack;
-void StackInit(Stack* ps);
-void StackPush(Stack* ps,StackData data);
-void StackPop(Stack* ps);
-int StackTop(Stack* ps);
-int StackSize(Stack* ps);
-void StackDestroy(Stack* ps);
+void StackInit(Stack* ps);//初始化
+void StackPush(Stack* ps,StackData data);//入栈
+void StackPop(Stack* ps);//出栈
+int StackTop(Stack* ps);//获取栈顶元素
+int StackSize(Stack* ps);//获取栈中有效元素个数
+void StackDestroy(Stack* ps);//销毁栈
+int StackEmpty(Stack* ps);//判栈空
