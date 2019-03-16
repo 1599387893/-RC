@@ -79,56 +79,54 @@ void PostOrder(BTNode* pRoot)
 //前序遍历
 void PreOrderNor(BTNode* pRoot)
 {
-	//BTNode* ptr = NULL;
-	//Stack s;
-	//StackInit(&s);
-	////先将根节点入栈
-	//StackPush(&s,pRoot);
-	//while (!StackEmpty(&s))
-	//{
-	//	//先将pRoot的左子树遍历
-	//	ptr = pRoot->_pleft;
-	//	while (ptr)
-	//	{
-	//		StackPush(&s, ptr);
-	//		ptr = ptr->_pleft;
-	//	}
-	//	while (!StackEmpty(&s))
-	//	{
-	//		if (NULL != ptr->_pright)
-	//		{
-	//			while (ptr)
-	//			{
-	//				StackPush(&s, ptr);
-	//			}
-	//		}
-	//		ptr = StackTop(&s);
-	//		printf("%c ", ptr->_data);
-	//		StackPop(&s);
-	//	}
-	//	//遍历右子树
-	//	ptr = pRoot->_pright;
-	//	while (ptr)
-	//	{
-	//		StackPush(&s, ptr);
-	//		ptr = ptr->_pright;
-	//	}
-	//	while (!StackEmpty(&s))
-	//	{
-	//		ptr = StackTop(&s);
-	//		printf("%c ", ptr->_data);
-	//		StackPop(&s);
-	//	}
-	//	
-	//		
+	Stack s;
+	if (NULL == pRoot)
+		return;
 
+	StackInit(&s);
+	stackPush(&s, pRoot);
+	while (!StackEmpty(&s))
+	{
+		BTNode pCur = StackTop(&s);
+		printf("%c ", pCur->data);
+		StackPop(&s);
+		
+		//先保存右孩子
+		if (NULL != pCur->_pright)
+			StackPush(&s, pCur->_pright);
+		if (NULL != pCur->_pleft)
+			StackPush(&s, pCur->_pleft);
+	}
+	printf("\n");
+	StackDestory(&s);
 
-	//}
 }
 //中序遍历
 void InOrderNor(BTNode* pRoot)
 {
+	if (pRoot == NULL)
+		return;
+	BTNode* pCur = pRoot;
+	Stack s;
+	StackInit(&s);
 
+	while (pCur || !StackEmpty(&s))
+	{
+		//找到二叉树最左侧节点，并保存所经路径的结点
+		while (pCur)
+		{
+			pCur = pCur->_pleft;
+			StackPush(&s, pRoot);
+		}
+		pCur = StackTop(&s);
+		printf("%c ", pCur->_data);
+		StackPop(&s);
+
+		pCur = pCur->_pright;
+	}
+	
+	printf("\n");
+	StackDestory(&s);
 }
 //后序遍历
 void PostOrderNor(BTNode* pRoot)
