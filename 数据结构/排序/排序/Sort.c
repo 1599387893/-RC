@@ -91,6 +91,8 @@ void ShellSort(int* array, int size)
 	}
 	
 }
+
+
 //选择排序
 void SelectionSort(int* array, int size)
 {
@@ -104,7 +106,37 @@ void SelectionSort(int* array, int size)
 			if (array[max] < array[i])
 				max = i;
 		}
-		Swap(&(array[max]), &(array[last]));
+		if (max != last)
+			Swap(&(array[max]), &(array[last]));
+		last--;
+	}
+}
+void SelectionSort_2(int* array, int size)
+{
+	int max = 0;
+	int min = 0;
+	int last = size - 1;
+	int begin = 0;
+	while (last >= begin)
+	{
+		max = begin;
+		min = begin;
+		for (int i = begin+1; i <= last; i++)
+		{
+			if (array[max] < array[i])
+				max = i;
+			if (array[min] > array[i])
+				min = i;
+		}
+		if (min != begin)
+			Swap(&array[min], &array[begin]);
+		//判断最大和最小元素在需要互换的位置
+		if (begin == max)
+			max = min;
+
+		if (max != last)
+			Swap(&(array[max]), &(array[last]));
+		begin++;
 		last--;
 	}
 }
@@ -144,6 +176,8 @@ void HeapSort(int* array, int size)
 		n--;
 	}
 }
+
+
 //冒泡排序
 void BubbleSort(int* array, int size)
 {
@@ -163,99 +197,177 @@ void BubbleSort(int* array, int size)
 
 }
 //快速排序
-//1.0
-int Partition(int* array, int left, int right)
-{
 
+//1.0 hoare法
+int Partition_1(int* array, int left, int right)
+{
+	int key = array[right];//取一个基准值
+	int begin = left;
+	int end = right;
+	while (begin < end)
+	{
+		//从左往右找比基准值大的元素
+		while (array[begin] < key)
+			begin++;
+		//从右往左找不基准值小的元素
+		while (array[end] > key)
+			end--;
+		//交换
+		if (begin < end)
+			Swap(&(array[begin]), &(array[end]));
+	}
+	if (array[begin] != key)
+		Swap(&(array[begin]), &key);
+
+	return begin;
 }
-void QSort(int* array, int left, int right)
+
+void QSort_1(int* array, int left, int right)
 {
 	int mid = 0;
 	if (left < right)
 	{
-		mid = Partition(array, left, right);
-		Qsort(array, 0, left - 1);
-		Qsort(array, left + 1, right);
+		mid = Partition_1(array, left, right);
+		QSort_1(array, 0, left - 1);
+		QSort_1(array, left + 1, right);
 	}
 	
 }
+
 //2.0 挖坑法
-//三数取中法
-int TakeMid(int a, int b, int c)
+int Partition_2(int* array, int left, int right)
 {
-	if (a > b && a > c)
+	int key = array[right];
+	int begin = left;
+	int end = right;
+	while (begin < end)
 	{
-		if (b > c)
-			return b;
-		else
-			return c;
-	}
-	if (c > b && c > a)
-	{
-		if (a > b)
-			return a;
-		else
-			return b;
-	}
-	if (b > a && b > c)
-	{
-		if (a > c)
-			return a;
-		else
-			return c;
-	}
-}
-void QSort(int* array, int begin,int end)
-{
-	int key = TakeMid(array[0], array[end], array[(end - 1) / 2]);
+		//先从前往后找比基准值大的元素
+		while (begin < end && array[begin] <= key)
+			begin++;
+		
+		//找到了比基准值大的元素
+		if (begin < end)
+			//填坑
+			array[end--] = array[begin];
+		
+		//再从后往前找比基准值小的元素
+		while (end > begin && array[end] >= key)
+			end--;
 
-}//3.0 前后指针法
-//三数取中法
-int TakeMid(int a, int b, int c)
+		if (begin < end)
+			//填上一次的坑
+			array[begin++] = array[end];
+	}
+	array[begin] = key;
+
+	return begin;
+}
+void QSort_2(int* array, int left, int right)
 {
-	if (a > b && a > c)
+	int mid = 0;
+	if (left < right)
 	{
-		if (b > c)
-			return b;
-		else
-			return c;
+		mid = Partition_2(array, left, right);
+		QSort_2(array, left, mid - 1);
+		QSort_2(array, mid + 1, right);
 	}
-	if (c > b && c > a)
+
+}
+
+//3.0 前后指针法
+int Partition_3(int* array, int left, int right)
+{
+	int cur = left;
+	int prev =cur - 1;
+	int key = array[right-1];
+	while (cur < right)
 	{
-		if (a > b)
-			return a;
-		else
-			return b;
+		//找出比基准值小的元素,找到后++prev
+		if (array[cur] < key && ++prev != cur)
+			Swap(&array[cur], &array[prev]);
+
+		++cur;
+		
 	}
-	if (b > a && b > c)
+	//防止访问越界
+	if (++prev != right-1)
+		Swap(&(array[prev]), &(array[right-1]));
+	return prev;
+}
+void QSort_3(int* array, int left ,int right)
+{
+	while (right - left > 1)
 	{
-		if (a > c)
-			return a;
-		else
-			return c;
+		int mid = Partition_3(array, left, right);
+		QSort_3(array, left, mid);
+		QSort_3(array, mid + 1, right);
 	}
 }
-void QSort(int* array, int begin ,int end)
-{
-	int key = TakeMid(array[0], array[begin - 1], array[(begin - 1) / 2]);
-	int left = begin;
-	int right = &array[end];
-	while ();
-}
+
+
+
+
 //归并排序
-void merge(int* a, int asize, int* b, int bsize)
-{
+//void merge(int* a, int asize, int* b, int bsize)
+//{
+//
+//}
+//void MergeSort(int* array, int size)
+//{
+//	//1.0  类似于前序遍历
+//	//险种处分界点
+//	//将左边进行MergeSort
+//	//将右边进行MergeSort
+//
+//	//2.0
+//	//直接从最小分组进行归并
+//
+//	
+//}
 
-}
-void MergeSort(int* array, int size)
-{
-	//1.0  类似于前序遍历
-	//险种处分界点
-	//将左边进行MergeSort
-	//将右边进行MergeSort
 
-	//2.0
-	//直接从最小分组进行归并
 
-	
-}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+////三数取中法
+//int TakeMid(int a, int b, int c)
+//{
+//	if (a > b && a > c)
+//	{
+//		if (b > c)
+//			return b;
+//		else
+//			return c;
+//	}
+//	if (c > b && c > a)
+//	{
+//		if (a > b)
+//			return a;
+//		else
+//			return b;
+//	}
+//	if (b > a && b > c)
+//	{
+//		if (a > c)
+//			return a;
+//		else
+//			return c;
+//	}
+//}
