@@ -2,12 +2,28 @@
 #include<stdio.h>
 #include<stdlib.h>
 
-//ÏÔÊ¾ÄÚÈİ
-void Print(int* array,int size);
+
+void Print(int* array,int size);//ÏÔÊ¾ÄÚÈİ
 void InsertSort(int* array, int size);//²åÈëÅÅĞò
 void ShellSort(int* array, int size);//Ï£¶ûÅÅĞò
 void SelectionSort(int* array, int size);//Ñ¡ÔñÅÅĞò
 void HeapSort(int* array, int size);//¶ÑÅÅĞò
 void BubbleSort(int* array, int size);//Ã°ÅİÅÅĞò
-void QSort(int* array, int size);//¿ìËÙÅÅĞò
+void QSort(int* array, int left,int right);//¿ìËÙÅÅĞò
 void MergeSort(int* array, int size);//¹é²¢ÅÅĞò
+
+//void InsertSort(int* array, int size);
+//void ShellSort(int* array, int size);
+//void SelectSort(int* array, int size);
+//void SelectSortOP(int* array, int size);
+//void HeapSort(int* array, int size);
+//void BubbleSort(int* array, int size);
+//void QuickSort(int* array, int left, int right);
+//void QuickSortNor(int* array, int size);
+//void MergeSort(int* array, int size);
+//void MergeSortNor(int* array, int size);
+//
+
+
+
+

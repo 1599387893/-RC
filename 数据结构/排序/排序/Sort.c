@@ -18,27 +18,23 @@ void Swap(int* a, int* b)
 //插入排序
 void InsertSort(int* array, int size)
 {
-	//2.0
-	//int i, j, k;
-	//for (i = 1; i < size; i++)
-	//{
-	//	for (j = i - 1; j >= 0;j--)
-	//		if (array[j] < array[i])
-	//			break;
-	//	if (j != i - 1)
-	//	{
-	//		int temp = array[i];
-	//		for (k = i - 1; k > j; k--)
-	//		{
-	//			array[k + 1] = array[k];
-	//		}
-	//		array[k + 1] = temp;
-	//	}
-	//}
-
-
-
-
+	int i = 0,j = 0,k = 0;
+	for (i = 1; i < size; i++)
+	{
+		for (j = i - 1; j >= 0; j--)
+		{
+			if (array[j] < array[i])
+				break;
+		}
+		if (j != i - 1)//?
+		{
+			int temp = array[i];
+			for (k = i - 1; k > j; k--)
+				array[k + 1] = array[k];
+			array[k + 1] = temp;//不等价于array[j] = temp，将i和j位置上的元素交换
+		}
+		
+	}
 	//1.0
 	//for (int i = 1; i < size; i++)
 	//{
@@ -52,23 +48,48 @@ void InsertSort(int* array, int size)
 	//	}
 	//}
 }
+void InsertSort_2(int* array, int size)
+{
+	for (int i = 1; i < size; i++)
+	{
+		int key = array[i];
+		int n = i - 1;
+		//找出需要转换的元素的位置
+		while (n >= 0 && array[n] > key)
+		{
+			array[n + 1] = array[n];
+			n--;
+		}
+		array[n+1] = key;
+	}
+}
 //希尔排序
 void ShellSort(int* array, int size)
 {
-	int gap = size / 2;
-	for ()
-
-
-	//int gap = 5;
-	//for (int i = 0; i < size; i++)
-	//{
-	//	for (int j = gap; j < size; j++)
-	//	{
-	//		if (j + gap < size && array[j] < array[j + gap])
-	//			Swap(&array[j], &array[j + gap]);
-	//	}
-	//	gap--;
-	//}
+	int gap = 3;
+	int i, j, k;
+	while (gap > 0)
+	{
+		for (i = gap; i < size; i += gap)
+		{
+			for (j = i - gap; j >= 0; j -= gap)
+			{
+				if (array[j] < array[i])
+					break;
+			}
+			if (j != i - gap)
+			{
+				int temp = array[i];
+				for (k = i - gap; k > j; k-=gap)
+				{
+					array[k + gap] = array[k];
+				}
+				array[k + gap] = temp;
+			}
+		}
+		gap--;
+	}
+	
 }
 //选择排序
 void SelectionSort(int* array, int size)
@@ -142,9 +163,84 @@ void BubbleSort(int* array, int size)
 
 }
 //快速排序
-void QSort(int* array, int size)
+//1.0
+int Partition(int* array, int left, int right)
 {
 
+}
+void QSort(int* array, int left, int right)
+{
+	int mid = 0;
+	if (left < right)
+	{
+		mid = Partition(array, left, right);
+		Qsort(array, 0, left - 1);
+		Qsort(array, left + 1, right);
+	}
+	
+}
+//2.0 挖坑法
+//三数取中法
+int TakeMid(int a, int b, int c)
+{
+	if (a > b && a > c)
+	{
+		if (b > c)
+			return b;
+		else
+			return c;
+	}
+	if (c > b && c > a)
+	{
+		if (a > b)
+			return a;
+		else
+			return b;
+	}
+	if (b > a && b > c)
+	{
+		if (a > c)
+			return a;
+		else
+			return c;
+	}
+}
+void QSort(int* array, int begin,int end)
+{
+	int key = TakeMid(array[0], array[end], array[(end - 1) / 2]);
+
+}//3.0 前后指针法
+//三数取中法
+int TakeMid(int a, int b, int c)
+{
+	if (a > b && a > c)
+	{
+		if (b > c)
+			return b;
+		else
+			return c;
+	}
+	if (c > b && c > a)
+	{
+		if (a > b)
+			return a;
+		else
+			return b;
+	}
+	if (b > a && b > c)
+	{
+		if (a > c)
+			return a;
+		else
+			return c;
+	}
+}
+void QSort(int* array, int begin ,int end)
+{
+	int key = TakeMid(array[0], array[begin - 1], array[(begin - 1) / 2]);
+	int left = begin;
+	int right = &array[end];
+	while ();
 }
 //归并排序
 void merge(int* a, int asize, int* b, int bsize)
