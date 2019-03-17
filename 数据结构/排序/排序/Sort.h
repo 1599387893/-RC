@@ -13,7 +13,8 @@ void BubbleSort(int* array, int size);//冒泡排序
 void QSort_1(int* array, int left,int right);//快速排序1
 void QSort_2(int* array, int left, int right);//快速排序2
 void QSort_3(int* array, int left, int right);//快速排序3
-void MergeSort(int* array, int size);//归并排序
+//void MergeSort(int* array, int size)
+int merge_sort(int r[], int s[], int m, int n);//归并排序
 
 //void InsertSort(int* array, int size);
 //void ShellSort(int* array, int size);
