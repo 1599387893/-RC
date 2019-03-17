@@ -131,12 +131,52 @@ void InOrderNor(BTNode* pRoot)
 //后序遍历
 void PostOrderNor(BTNode* pRoot)
 {
+	BTNode* pCur = pRoot;
+	Stack s;
+	StackInit(&s);
+	
+	while (!StackEmpty(&s))
+	{
 
+		while (pCur)
+		{
+			StackPush(&s, pCur);
+			if (pCur->_pleft)
+				pCur = pCur->_pleft;
+		}
+		pCur = StackTop(&s);
+		if (pCur->_pright)
+		{
+			StackPush(&s, pCur->_pright);
+			pCur = pCur->_pright;
+		}
+		pCur = StackTop(&s);
+
+	}
 }
 //层序遍历
 void LevelOrder(BTNode* pRoot)
 {
+	BTNode* pCur = pRoot;
+	Queue q;
+	QueueInit(&q);
 
+	QueuePush(pRoot);
+	while (!QueueEmpty(&q))
+	{
+		pCur = QueueFront(&q);
+		printf("%c ", pCur->_data);
+		QueuePop(&q);
+
+		if (pCur->_pleft)
+			QueuePush(&q, pCur->_pleft);
+
+		if (pCur->_pright )
+			QueuePush(&q, pCur->_pright);
+		
+	}
+	QueueDestory(&q);
+	printf("\n");
 }
 
 //二叉树的深度

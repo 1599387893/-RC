@@ -7,7 +7,7 @@ int main()
 	pRoot = CreateBinTree(array, sizeof(array) / sizeof(array[0]));
 	//printf("前序遍历："); PreOrder(pRoot);
 	//printf("\n中序遍历：");InOrder(pRoot);
-	//printf("\n后序遍历：");PostOrder(pRoot);
+	printf("\n后序遍历：");PostOrder(pRoot);
 	//printf("\n");
 	//printf("二叉树的高度是=%d\n", HeightBinTree(pRoot));
 	printf("二叉树是不是平衡树=%d\n", isBalanceTree(pRoot));
