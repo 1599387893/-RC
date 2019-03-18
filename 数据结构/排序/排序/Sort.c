@@ -227,13 +227,13 @@ void QSort_1(int* array, int left, int right)
 	if (left < right)
 	{
 		mid = Partition_1(array, left, right);
-		QSort_1(array, 0, left - 1);
-		QSort_1(array, left + 1, right);
+		QSort_1(array, 0, mid - 1);
+		QSort_1(array, mid + 1, right);
 	}
 	
 }
 
-//2.0 挖坑法
+//2.0 挖坑法	
 int Partition_2(int* array, int left, int right)
 {
 	int key = array[right];

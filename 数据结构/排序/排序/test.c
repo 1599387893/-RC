@@ -10,10 +10,10 @@ int main()
 	//HeapSort(array, sizeof(array) / sizeof(array[0]));
 	//SelectionSort(array, sizeof(array) / sizeof(array[0]));
 	//SelectionSort_2(array, sizeof(array) / sizeof(array[0]));
-	//QSort_1(array, 0, 9);
+	QSort_1(array, 0, 9);
 	//QSort_2(array, 0, 9);
 	//QSort_3(array, 0, 10);
-	merge_sort(array, array, 0, 9);
+	//merge_sort(array, array, 0, 9);
 	Print(array, sizeof(array) / sizeof(array[0]));
 	system("pause");
 	return 0;
