@@ -1,11 +1,23 @@
 #include"SeqList.h"
 
 
+void CheckCapacity(SeqList* s)
+{
+	if (_capacity = _size)
+	{
+		int* NewArr = (int*)malloc(sizeof(int)* _capacity * 2);
+		assert(NewArr);
+		_capacity *= 2;
+		memcpy(_array, NewArr, sizeof(int)* _capacity);
+		free(NewArr);
+		NewArr = nullptr;
+	}
+}
 void SeqList::SeqListPushBack(int data)
 {
 	assert(this);
 	//检查容量
-	//CheckCapacity();
+	//CheckCapacity(this);
 	_array[_size] = data;
 	_size++;
 	
@@ -34,7 +46,23 @@ void SeqList::SeqListPopFront()
 		_array[i] = _array[i + 1];
 	_size--;
 }
-void SeqListInsert(int pos, int data);//任意位置插入
+void SeqListInsert(int pos, int data)//任意位置插入
+{
+	assert(this);
+	CheckCapacity();
+	if (_size <= pos)
+	{
+		_array[_size] = data;
+		_size++;
+	}
+	for (int i = _size; i > pos; i--)
+	{
+		_array[i] = _array[i - 1];
+	}
+	_array[pos] = data;
+	_size++;
+		
+}
 void SeqListErase(int pos);//任意位置删除
 int SeqListFind(int data);// 检测data是否在顺序表中 
 void SeqListRemove(int data);// 移除顺序表中第一个值为data的元素 

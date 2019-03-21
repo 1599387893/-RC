@@ -20,6 +20,14 @@ public:
 		_capacity = 0;
 		_size = 0;
 	}
+	int GetCapacity()
+	{
+		return _capacity;
+	}
+	int GetSize()
+	{
+		return _size;
+	}
 	void SeqListPushBack(int data);//Î²²å
 	void SeqListPopBack();//Î²É¾
 	void SeqListPushFront(int data);//Í·²å
