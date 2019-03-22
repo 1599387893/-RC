@@ -9,8 +9,11 @@ void Menu()
 	printf("-------------- 0. EXIT     -----------------\n");
 	printf("--------------------------------------------\n");
 }
+//进行游戏
 void Play()
 {
+	char arr[ROW][COL];
+	Init(arr, ROW, COL);
 
 }
 int main()
@@ -33,7 +36,7 @@ int main()
 				printf("选择错误！\n");
 				break;
 		}
-	} while (input)
+	} while (input);
 	
-	
+	return 0;
 }
