@@ -201,23 +201,22 @@ void BubbleSort(int* array, int size)
 //1.0 hoare法
 int Partition_1(int* array, int left, int right)
 {
-	int key = array[right];//取一个基准值
 	int begin = left;
-	int end = right;
+	int end = right - 1;
+	int key = array[right - 1];
+
 	while (begin < end)
 	{
-		//从左往右找比基准值大的元素
-		while (array[begin] < key)
+		while (begin < end && array[begin] <= key)
 			begin++;
-		//从右往左找不基准值小的元素
-		while (array[end] > key)
+		while (begin < end && array[end] >= key)
 			end--;
-		//交换
+
 		if (begin < end)
-			Swap(&(array[begin]), &(array[end]));
+			Swap(&array[begin], &array[end]);
 	}
 	if (array[begin] != key)
-		Swap(&(array[begin]), &key);
+		Swap(&array[begin], &array[right - 1]);
 
 	return begin;
 }
@@ -226,11 +225,10 @@ void QSort_1(int* array, int left, int right)
 	int mid = 0;
 	if (left < right)
 	{
-		mid = Partition_1(array, left, right);
-		QSort_1(array, 0, mid - 1);
-		QSort_1(array, mid + 1, right);
+		mid = Parition(array, left, right);
+		Qsort(array, left, mid);
+		Qsort(array, mid + 1, right);
 	}
-	
 }
 
 //2.0 挖坑法	
@@ -364,4 +362,51 @@ int merge_sort(int r[], int s[], int m, int n)
 		merge(t, s, m, p, n);    //调用函数将前两部分归并到s[m]〜s[n】*/
 	}
 	return 0;
+}
+
+//归并排序（非递归）
+void MergeData(int* array, int left, int mid, int right, int* temp)
+{
+	int begin1 = left;
+	int end1 = mid;
+	int begin2 = mid;
+	int end2 = right;
+	int index = left;
+
+	while (begin1 < end1 && begin2 < end2)
+	{
+		if (array[begin1] < array[begin2])
+			temp[index++] = array[begin1++];
+		else
+			temp[index++] = array[begin2++];
+	}
+	while (begin1<end1)
+		temp[index++] = array[begin1++];
+	while (begin2<end2)
+		temp[index++] = array[begin2++];
+
+
+
+}
+void MergeSortNor(int* array, int size)
+{
+	int* temp = (int*)malloc(sizeof(int)* 10);
+	int gap = 1;
+	while (gap < size)
+	{
+		for (int i = 0; i < size; i += gap * 2)
+		{
+			int left = i;
+			int mid = left + gap;
+			int right = mid + gap;
+
+			if (mid >size)
+				mid = size;
+			if (right>size)
+				right = size;
+			MergeData(array, left, mid, right, temp);
+		}
+		memcpy(array, temp, sizeof(int)* 10);
+		gap *= 2;
+	}
 }
