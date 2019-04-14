@@ -27,7 +27,22 @@ namespace bit
 		{
 			if (&s != this)
 			{
-
+				char* ptr = new char[s._capacity];
+				strcpy(ptr, s._str);
+				delete[] _str;
+				_str = ptr;
+				_capacity = s._capacity;
+				_size = s._size;
+			}
+			return *this;
+		}
+		~string()
+		{
+			if (_str)
+			{
+				delete[] _str;
+				_capacity = 0;
+				_size = 0;
 			}
 		}
 	private:
@@ -36,4 +51,19 @@ namespace bit
 		size_t _size;
 	};
 
+}
+
+void Teststring()
+{
+	bit::string s1;
+	bit::string s2("hello");
+	bit::string s3(s2);
+	s1 = s2;
+}
+
+int main()
+{
+	Teststring();
+
+	return 0;
 }
