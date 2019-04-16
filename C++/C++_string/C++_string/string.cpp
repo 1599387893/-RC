@@ -68,6 +68,7 @@ void Teststring1()
 	s1 = s2;
 
 }
+
 //第二种模拟方法：深拷贝（现代）
 namespace bit2
 {
@@ -85,8 +86,8 @@ namespace bit2
 			_size = strlen(s);
 			_capacity = _size + 1;
 		}
-		//拷贝构造函数
-		string(const string& s)
+		//拷贝构造函数1.0
+		string(const string& s) :_str(nullptr)
 		{
 			string temp(s._str);
 			swap(_str, temp._str);//交换之后临时变量temp会带着旧的_str执行析构函数
@@ -94,10 +95,9 @@ namespace bit2
 			_size = s._size;
 		}
 		//赋值运算符的重载函数
-		string& operator=(const string& s)
+		string& operator=(string s)
 		{
-			string temp(s._str);
-			swap(_str, temp._str);
+			swap(_str, s._str);
 			_size = s._size;
 			_capacity = s._capacity;
 			return *this;
@@ -123,8 +123,9 @@ void Teststring2()
 	s4 = s5;
 }
 
+#if 0
 //第三种模拟方法：写时拷贝
-namespace bit
+namespace bit3
 {
 	class string
 	{
@@ -158,12 +159,19 @@ namespace bit
 		size_t _capacity;
 	};
 }
-
-
-int main()
+void Teststring3()
 {
-	//Teststring1();
-	Teststring2();
-
-	return 0;
+	bit3::string s1(nullptr);
+	bit3::string s2("hello");
+	bit3::string s3(s2);
+	s1 = s3;
 }
+#endif
+
+//int main()
+//{
+//	//Teststring1();
+//	Teststring2();
+//
+//	return 0;
+//}
