@@ -11,8 +11,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{EFF3EE3F-E5D2-4C18-BE86-6157EF9BCD7A}</ProjectGuid>
-    <RootNamespace>C_string</RootNamespace>
+    <ProjectGuid>{21DC6CF7-8B5A-4D63-A394-3FA51B80848C}</ProjectGuid>
+    <RootNamespace>Exercise_4_20</RootNamespace>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -64,8 +64,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="string%28解决浅拷贝问题%29.cpp" />
-    <ClCompile Include="string模拟实现.cpp" />
+    <ClCompile Include="4_20.cpp" />
+    <ClCompile Include="源.c" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

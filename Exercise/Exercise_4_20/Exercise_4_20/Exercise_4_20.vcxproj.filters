@@ -15,10 +15,10 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="string%28解决浅拷贝问题%29.cpp">
+    <ClCompile Include="4_20.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="string模拟实现.cpp">
+    <ClCompile Include="源.c">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
