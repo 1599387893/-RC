@@ -90,10 +90,15 @@ namespace RC
 		}
 		void Resize(size_t newSize, char c = char())
 		{
-			if (newSize > _capacity)
+			if (newSize > _size)
 			{
-
+				if (newSize > _capacity)
+				{
+					Reserve(newSize);
+				}
+				Append((newSize - _size), c);
 			}
+			_size = newSize;
 
 		}
 		void Reserve(size_t n = 0)
@@ -120,25 +125,66 @@ namespace RC
 		}
 		///////////////////////////////////////////////////////////////////////////////////////
 		//access
+		char& operator[](const size_t index)
+		{
+			assert(index < _size);
+			return _str[index];
+		}
 		const char& operator[](const size_t index)const
 		{
-			assert(index > _size);
+			assert(index < _size);
+			return _str[index];
+		}
+		char& at(const size_t index)
+		{
+			assert(index < _size);
 			return _str[index];
 		}
 		const char& at(const size_t index)const
 		{
-			assert(index > _size);
+			assert(index < _size);
 			return _str[index];
 		}
 		////////////////////////////////////////////////////////////////////////////////////////
-		//modify
-		string& operator+=(const string& s);
-		string& operator+=(const char* str);
-		void PushBack(char c);
-		string& Append(char c );
-		string& Append(char* str);
-		string& Append(size_t n, char c);
-		void Swap(string& s);
+		//modifiers
+		string& operator+=(const string& s)
+		{
+			Append(s._str);
+			return *this;
+		}
+		string& operator+=(const char* str)
+		{
+			Append(str);
+			return *this;
+		}
+		void PushBack(char c)
+		{
+			if (_size == _capacity)
+				Reserve(2 * _capacity);
+			_str[_size++] = c;
+			_str[_size] = '\0';
+		}
+		string& Append(const char* str)
+		{
+			while (*str != '\0')
+			{
+				PushBack(*str);
+				++str;
+			}	
+			return *this;
+		}
+		string& Append(size_t n, char c)
+		{
+			for (n; n > 0; n--)
+				PushBack(c);
+			return *this;
+		}
+		void Swap(string& s)
+		{
+			swap(_str, s._str);
+			swap(_size, s._size);
+			swap(_capacity, s._capacity);
+		}
 	private:
 		char* _str;
 		size_t _capacity;
@@ -166,10 +212,57 @@ void Teststring_string()
 	s1 = s3;
 	Print(s1);
 }
+void Teststring_capacity()
+{
+	RC::string s1;
+	RC::string s2("Hello");
+	cout <<"s1:"<< s1.Empty() << endl;;
+	cout << "s2:" << s2.Empty() << endl;
+	Print(s2);
+	cout << s2.Size() << endl;
+	cout << s2.Capacity() << endl;
+	
+	/*s2.Resize(10,'A');
+	Print(s2);
+	cout << s2.Size() << endl;
+	cout << s2.Capacity() << endl;*/
+	
+	s2.Reserve(10);
+	Print(s2);
+	cout << s2.Size() << endl;
+	cout << s2.Capacity() << endl;
+
+	s2.clear();
+	Print(s2);
+	cout << s2.Size() << endl;
+	cout << s2.Capacity() << endl;
+}
+void Teststring_access()
+{
+	RC::string s1("hello");
+	RC::string s2("world");
+	cout << s1[0] << endl;
+	s1[0] = 'H';
+	cout << s1[0] << endl;
+	cout << s2.at(0) << endl;
+	s2.at(0) = 'H';
+	cout << s2.at(0)<< endl;
+}
+void Teststring_modifiers()
+{
+	RC::string s1;
+	RC::string s2(" world");
+	s1.PushBack('A');
+	//问题在扩容这里
+	s1.Swap(s2);
+
+}
 
 int main()
 {
-	Teststring_string();
-
+	//Teststring_string();
+	//Teststring_capacity();
+	//Teststring_access();
+	Teststring_modifiers();
 	return 0;
 }
