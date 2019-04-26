@@ -8,6 +8,7 @@ namespace RC
 {
 	class string
 	{
+	public:
 		typedef char* iterator;
 	public:
 		//构造函数
@@ -16,7 +17,7 @@ namespace RC
 			if (str == nullptr)
 				str = "";
 			_size = strlen(str);
-			_capacity = _size + 1;
+			_capacity = _size+1;
 			_str = new char[_capacity];
 			strcpy(_str, str);
 		}
@@ -26,6 +27,15 @@ namespace RC
 			, _size(s._size)
 		{
 			strcpy(_str, s._str);
+		}
+		string(const char* pstr, size_t n)
+		{
+			size_t length = strlen(pstr);
+			_size = length > n ? n : length;
+			_capacity = _size + 1;
+			_str = new char[_capacity];
+			memcpy(_str, pstr, n);
+			_str[_size] = '\0';
 		}
 		string(size_t n, char c)
 		{
@@ -88,7 +98,7 @@ namespace RC
 		{
 			return (_size == 0);
 		}
-		void Resize(size_t newSize, char c = char())
+		void Resize(size_t newSize, char c = char())//将有效元素个数修改到newSize;
 		{
 			if (newSize > _size)
 			{
@@ -96,32 +106,26 @@ namespace RC
 				{
 					Reserve(newSize);
 				}
-				Append((newSize - _size), c);
+				memset(_str + _size, c, newSize - _size);
 			}
 			_size = newSize;
-
+			_str[_size] = '\0';
 		}
-		void Reserve(size_t n = 0)
+		void Reserve(size_t newCapacity = 0)//预留空间，当新容量大于原容量时才会扩容
 		{
-			if (n > _capacity)
+			if (newCapacity > _capacity)
 			{
-				char* temp = new char[n];
+				char* temp = new char[newCapacity+1];
 				strcpy(temp, _str);
-
 				delete[] _str;
 				_str = temp;
-				_capacity = n;
+				_capacity = newCapacity;
 			}
 		}
 		void clear()
 		{
-			if (_str)
-			{
-				delete[] _str;
-				_str = nullptr;
+				_str[_size] = '\0';
 				_size = 0;
-				_capacity = 0;
-			}
 		}
 		///////////////////////////////////////////////////////////////////////////////////////
 		//access
@@ -185,11 +189,46 @@ namespace RC
 			swap(_size, s._size);
 			swap(_capacity, s._capacity);
 		}
+		void insert();
+		void erase();
+		///////////////////////////////////////////////////////////////////////////////////////////
+		//String operations
+		const char* C_str()const
+		{
+			return _str;
+		}
+		size_t find(char c, size_t pos = 0)
+		{
+			if (pos > _size || pos < 0)
+				return -1;
+
+			for (size_t i = pos; i < _size; i++)
+				if (c == _str[i])
+					return i;
+			return -1;
+		}
+		size_t rfind(char c, size_t pos = npos)
+		{
+			if (pos == npos || pos > _size)
+				pos = _size - 1;
+
+			for (int i = pos; i >= 0; --i)
+				if (c == _str[i])
+					return i;
+
+			return -1;
+		}
+		string strsub(size_t pos = 0, size_t n = npos) const 
+		{
+			return string(_str + pos, n);
+		}
 	private:
 		char* _str;
 		size_t _capacity;
 		size_t _size;
+		static const size_t npos;
 	};
+	const size_t string::npos = 1;
 }
 void Print(RC::string& s)
 {
@@ -207,6 +246,8 @@ void Teststring_string()
 	RC::string s2("Hello");
 	RC::string s3(s2);
 	RC::string s4(10, 'a');
+	RC::string s5("world", 3);
+	Print(s5);
 	s1 = s4;
 	Print(s1);
 	s1 = s3;
@@ -222,10 +263,10 @@ void Teststring_capacity()
 	cout << s2.Size() << endl;
 	cout << s2.Capacity() << endl;
 	
-	/*s2.Resize(10,'A');
+	s2.Resize(3,'A');
 	Print(s2);
 	cout << s2.Size() << endl;
-	cout << s2.Capacity() << endl;*/
+	cout << s2.Capacity() << endl;
 	
 	s2.Reserve(10);
 	Print(s2);
@@ -253,10 +294,32 @@ void Teststring_modifiers()
 	RC::string s1;
 	RC::string s2(" world");
 	s1.PushBack('A');
-	//问题在扩容这里
+	Print(s1);
+	char* str = "Hello";
+	s1 += (str);
+	Print(s1);
+	s1 += s2;
+	Print(s1);
+
+	s1.Append(str);
+	Print(s1);
+	s1.Append(10,'A');
+	Print(s1);
+
 	s1.Swap(s2);
+	Print(s1);
 
 }
+
+
+
+
+
+//扩容时，删除原空间会出错
+
+
+
+
 
 int main()
 {
