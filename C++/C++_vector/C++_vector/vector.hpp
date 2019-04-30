@@ -351,16 +351,16 @@ namespace RC
 	};
 }
 
-//void Print(RC::vector<int>& v)
-//{
-//	auto it = v.begin();
-//	while (it != v.end())
-//	{
-//		cout << *it << " ";
-//		++it;
-//	}
-//	cout << endl;
-//}
+void Print(RC::vector<int>& v)
+{
+	auto it = v.begin();
+	while (it != v.end())
+	{
+		cout << *it << " ";
+		++it;
+	}
+	cout << endl;
+}
 
 int main()
 {
