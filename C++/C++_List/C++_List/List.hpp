@@ -118,10 +118,44 @@ namespace RC
 			return _pHead->_pPre->_data;
 		}
 		//modefty
-		void push_back(const T& data);
-		void pop_back();
-		void push_front(const T& data);
-		void pop_front();
+		void push_back(const T& data)
+		{
+			PNode temp = new PNode;
+			temp->_data = data;
+			temp->_pNext = _pHead;
+			temp->_pPre = _pHead->_pPre;
+			_pHead->_pPre->_pNext = temp;
+			_pHead->_pPre = temp;
+		}
+		void pop_back()
+		{
+			if (_pHead->_pNext != _pHead)
+			{
+				PNode temp = _pHead->_pPre;
+				_pHead->_pPre = _pHead->_pPre->_pPre;
+				_pHead->_pPre->_pNext = _pHead;
+				delete temp;
+			}
+		}
+		void push_front(const T& data)
+		{
+			PNode NewNode = new PNode;
+			NewNode->_data = data;
+			NewNode->_pNext = _pHead->_pNext;
+			NewNode->_pPre = _pHead;
+			_pHead->_pNext->_pPre = NewNode;
+			_pHead->_pNext = NewNode;
+		}
+		void pop_front()
+		{
+			if (_pHead->_pNext != _pHead)
+			{
+				PNode temp = _pHead->_pNext;
+				_pHead->_pNext = _pHead->_pNext->_pNext;
+				_pHead->_pNext->_pPre = _pHead;
+				delete temp;
+			}
+		}
 	private:
 		void CreatHead()//创建头结点
 		{
@@ -132,4 +166,15 @@ namespace RC
 	private:
 		PNode _pHead;
 	};
+}
+
+int main()
+{
+	RC::list<int> l1;
+	RC::list<int> l2;
+	RC::list<int> l3;
+	RC::list<int> l4;
+
+
+	return 0;
 }
