@@ -353,7 +353,7 @@ namespace RC
 
 void Print(RC::vector<int>& v)
 {
-	auto it = v.begin();
+	auto it = v.begin(); 
 	while (it != v.end())
 	{
 		cout << *it << " ";
