@@ -15,12 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="List.hpp">
-      <Filter>源文件</Filter>
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="List.cpp">
+    <ClCompile Include="源.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
