@@ -5,6 +5,7 @@
 //输出示例：
 //			beijing like i
 
+#if 0
 //方法一
 #include<iostream>
 #include<string>
@@ -30,7 +31,7 @@ int main()
 	return 0;
 }
 
-#if 0
+
 //方法二
 #include <iostream>
 #include <string>

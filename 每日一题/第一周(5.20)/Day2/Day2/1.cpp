@@ -6,7 +6,7 @@
 //Êä³öÊ¾Àı£º
 //			2					||2					||2
 
-#if 0
+//#if 0
 #include<iostream>
 #include<vector>
 using namespace std;
@@ -26,7 +26,8 @@ int main()
 		if ((v[i]>=v[i - 1] && v[i] >= v[i + 1]) || (v[i] <= v[i - 1] && v[i] <= v[i + 1]))
 		{
 			++ret;
-			if (i != n - 3)
+			//if (i != n - 3)
+			if (i >= 2)
 				++i;
 		}
 	}
@@ -35,4 +36,4 @@ int main()
 	system("pause");
 	return 0;
 }
-#endif
+//#endif
