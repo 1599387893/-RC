@@ -5,6 +5,8 @@
 //输出示例：
 //			111
 
+//方法一
+#if 0
 #include <iostream>
 #include<string>
 #include<algorithm>
@@ -34,4 +36,48 @@ int main()
 
 	system("pause");
 	return 0;
+}
+#endif
+
+//方法二
+
+//缺陷：只能表示十进制以内的
+#include<iostream>
+#include<vector>
+#include<math.h>
+using namespace std;
+
+int main()
+{
+	int retValue = 0;
+	int m, n;
+	int flag = 0;
+	vector<int>v;
+	cin >> m >> n;
+
+	if (m < 0)
+	{
+		flag = 1;
+		m = 0 - m;
+	}
+
+	//将n进制的每一位保存到容器v中
+	for (int i = 0; m > 0; ++i)
+	{
+		v.resize(i + 1);
+		v[i] = m%n;
+		m /= n;
+	}
+
+	//将容器v中的值按照十进制的方式组合起来
+	for (int i = v.size() - 1; i >= 0; --i)
+		retValue += v[i] * pow(10, i);
+
+	if (flag)
+		cout << "-";
+	cout << retValue << endl;
+
+	system("pause");
+	return 0;
+
 }
