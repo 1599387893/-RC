@@ -68,6 +68,10 @@
     <ClInclude Include="map.hpp" />
     <ClInclude Include="RBTree.hpp" />
     <ClInclude Include="set.hpp" />
+    <ClInclude Include="BSTree.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
