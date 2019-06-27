@@ -35,10 +35,28 @@ public:
 			return true;
 		}
 		//非空
-		
+		PNode pCur = _pRoot;
+		PNode pParent = nullptr;
+
 		//先找到需要插入的位置
+		while (pCur)
+		{
+			pParent = pCur;
+			if (pCur->_data > data)
+				pCur = pCur->_pLeft;
+			else if (pCur->_data < data)
+				pCur = pCur->_pRight;
+			else
+				return false;
+		}
 		//插入元素
+		pCur = new Node(data);
+		if (pCur->_data > pParent->_data)
+			pParent->_pRight = pCur;
+		else
+			pParent->_pLeft = pCur;
 		//更新平衡因子
+
 	}
 private:
 	PNode _pRoot;
