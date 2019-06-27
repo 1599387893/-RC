@@ -68,7 +68,13 @@ public:
 			pParent = pCur->_pParent;
 			//进行插入
 			Node pNewNode = new Node(data);
+			if (data >pParent->_val)
+				pParent->_pParent = pCur;
+			else
+				pParent->_pLeft = pCur;
+			pCur->_pParent = pParent;
 
+			//修改颜色 
 		}
 	}
 private:

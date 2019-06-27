@@ -55,8 +55,10 @@ public:
 			pParent->_pRight = pCur;
 		else
 			pParent->_pLeft = pCur;
-		//更新平衡因子
+		pCur->_pParent = pParent;
 
+		//更新平衡因子
+		//
 	}
 private:
 	PNode _pRoot;
