@@ -1,8 +1,11 @@
-#include"BSTree.hpp"
+//#include"BSTree.hpp"
+#include"AVLTree.hpp"
 
 int main()
 {
-	TestBSTree();
+	//TestBSTree();
+	TestAVLTree();
+
 
 	return 0;
 }
