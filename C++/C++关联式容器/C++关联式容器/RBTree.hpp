@@ -77,8 +77,19 @@ public:
 			//ÐÞ¸ÄÑÕÉ« 
 		}
 	}
+
 private:
 	PNode _pHead;
 };
+
+void TestRBTree()
+{
+	int array[] = { 3, 5, 6, 1, 9, 0, 4, 2, 8, 7 };
+	BRTree<int> rbt;
+	for (auto& e : array)
+		rbt.insert(e);
+
+
+}
 
 

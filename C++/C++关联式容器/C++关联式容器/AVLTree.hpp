@@ -34,7 +34,7 @@ public:
 	{}
 	~AVLTree()
 	{
-		_Destroy();
+		_Destroy(_pRoot);
 	}
 	bool Insert(const pair<K,V>& data)
 	{
@@ -82,7 +82,8 @@ public:
 			else if (1 == pParent->_bf || -1 == pParent->_bf) //平衡因子为+-1时，循环向上进新平衡因子的更新
 			{
 				pCur = pParent;
-				pParent = pParent->_pParent;
+				pParent = pCur->_pParent;
+				//pParent = pParent->_pRarent;和上边这个语句等价
 			}
 			else //当更新后平衡因子为+-2时，要进行旋转
 			{
@@ -115,19 +116,54 @@ public:
 		_InOrder(_pRoot);
 		cout << endl;
 	}
+	bool IsBalanceTree()
+	{
+		return _IsBalance(_pRoot,false);
+	}
 private:
+	bool _IsBalance(PNode pRoot,bool insert)
+	{
+		if (nullptr == pRoot)
+			return true;
+
+		size_t leftHeight = _Height(pRoot->_pLeft);
+		size_t rightHeight = _Height(pRoot->_pRight);
+		int bf = rightHeight - leftHeight;
+		if (insert)
+			pRoot->_bf = bf;
+		if ((abs(bf) > 1) || pRoot->_bf != bf)
+			return false;
+
+		return _IsBalance(pRoot->_pLeft,insert) && _IsBalance(pRoot->_pRight,insert);
+	}
+	size_t _Height(PNode pRoot)
+	{
+		if (pRoot == nullptr)
+			return 0;
+		
+		size_t leftHeight = _Height(pRoot->_pLeft);
+		size_t rightHeight = _Height(pRoot->_pRight);
+
+		return leftHeight > rightHeight ? leftHeight + 1 : rightHeight + 1;
+	}
 	void _InOrder(PNode pRoot)
 	{
 		if (pRoot)
 		{
 			_InOrder(pRoot->_pLeft);
 			cout << pRoot->_data.first << " ";
-			_InOrder(pRoot->_pLeft);
+			_InOrder(pRoot->_pRight);
 		}
 	}
-	void _Destroy()
+	void _Destroy(PNode pRoot)
 	{
-
+		if (pRoot)
+		{
+			_Destroy(pRoot->_pLeft);
+			_Destroy(pRoot->_pRight);
+			delete pRoot;
+			pRoot = nullptr;
+		}
 	}
 private:
 	void RotateL(PNode pParent)
@@ -156,7 +192,8 @@ private:
 		}
 
 		//更新平衡因子
-		pSubR->_bf = pParent->_bf = 0;
+		//pSubR->_bf = pParent->_bf = 0;
+		_IsBalance(pSubR->_pParent,true);
 	}
 	void RotateR(PNode pParent)
 	{
@@ -185,7 +222,8 @@ private:
 		}
 
 		//更新平衡因子
-		pParent->_bf = pSubL->_bf = 0;
+		//pParent->_bf = pSubL->_bf = 0;
+		_IsBalance(pSubL->_pParent,true);
 	}
 	void RotateLR(PNode pParent)
 	{
@@ -197,13 +235,45 @@ private:
 		RotateR(pParent->_pRight);
 		RotateL(pParent);
 	}
+	//特殊情况下的RotateLR和RotateRL
+	void RotateLR_special(PNode pParent)
+	{
+		PNode pSubL = pParent->_pLeft;
+		PNode pSubLR = pSubL->_pRight;
+		int bf = pSubLR->_bf;
+
+		RotateL(pParent->_pLeft);
+		RotateR(pParent);
+
+		if (1 == bf)
+			pSubL->_bf = -1;
+		else if (-1 == bf)
+			pParent->_bf = 1;
+	}
+	void RotateRL_special(PNode pParent)
+	{
+		PNode pSubR = pParent->_pRight;
+		PNode pSubRL = pSubR->_pLeft;
+		int bf = pSubRL->_bf;
+
+		RotateR(pParent->_pRight);
+		RotateL(pParent);
+		if (1 == bf)
+			pParent->_bf = -1;
+		else if (-1 == bf)
+			pSubR->_bf = 1;
+		
+	}
 private:
 	PNode _pRoot;
 };
 
 void TestAVLTree()
 {
-	int array[] = { 16, 3, 7, 11, 9, 26, 18, 14, 15 };
+	//普通情况
+	//int array[] = { 16, 3, 7, 11, 9, 26, 18, 14, 15 };
+	//特殊情况
+	int array[] = { 4, 2, 6, 1, 3, 5, 15, 7, 16, 14 };
 	AVLTree<int, int> tree;
 	/*for (auto e : array)
 		tree.Insert(make_pair(e, e));*/
@@ -211,5 +281,8 @@ void TestAVLTree()
 		tree.Insert(make_pair(array[i], array[i]));
 
 	tree.InOrder();
-
+	if (tree.IsBalanceTree())
+		cout << "tree is AVLTree" << endl;
+	else
+		cout << "tree is not AVLTree" << endl;
 }
