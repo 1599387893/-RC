@@ -66,7 +66,6 @@ public:
 			if (_ht[hashadds]._state == EXIST && _ht[hashadds]._val == data)
 				return hashadds;
 
-
 			//（线性探测--缺陷：容易发生数据堆积--解决方法：二次探测--H(i+1) = H(i) + i ^ 2 + 1）
 			if (IsLine)
 			{

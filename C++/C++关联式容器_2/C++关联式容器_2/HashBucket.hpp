@@ -2,6 +2,8 @@
 #include<vector>
 #include<list>
 #include<iostream>
+#include<string>
+#include"Common.h"
 using namespace std;
 
 template<class T>
@@ -15,6 +17,30 @@ struct HashBucketNode
 	T _val;
 };
 
+//仿函数
+template<class T>
+class D2INT
+{
+public:
+	T operator()(const T& data)
+	{
+		return data;
+	}
+};
+template<class T>
+class String2INT
+{
+public:
+	size_t operator()(const string& s)
+	{
+		//1.return s[0];
+		//2.return (每个字符ASCII值之和)
+		//3.return (size_t)s.c_str();
+		//4.
+		return BKDRHash(s.c_str());
+	}
+};
+
 template<class T>
 class HashBucket
 {
@@ -22,8 +48,8 @@ class HashBucket
 	typedef Node* PNode;
 public:
 	HashBucket(const size_t& capacity = 10)
-		:_table(capacity)
-		, _size(capacity)
+		:_table(GetNextPrime(capacity),nullptr)
+		, _size(0)
 	{}
 	~HashBucket()
 	{
@@ -47,8 +73,10 @@ public:
 		pCur = new Node(data);
 		pCur->_pNext = _table[bucketNo];
 		_table[bucketNo] = pCur;
+		_size++;
+		return true;
 	}
-	PNode Find(const T& data)
+	PNode Find(T data)
 	{
 		size_t bucket = HashFunc(data);
 		PNode pCur = _table[bucket];
@@ -60,19 +88,19 @@ public:
 		}
 		return nullptr;
 	}
-	bool Erase(const T& data)
+	bool Erase(T data)
 	{
 		size_t bucket = HashFunc(data);
 		PNode pCur = _table[bucket];
 		PNode pPer = nullptr;
 		while (pCur)
 		{
-			//删除链表中的第一个结点
 			if (pCur->_val == data)
 			{
+				//删除链表中的第一个结点
 				if (pPer == nullptr)
 					_table[bucket] = pCur->_pNext;
-				else
+				else//删除链表非第一个的结点
 					pPer->_pNext = pCur->_pNext;
 				delete pCur;
 				pCur = nullptr;
@@ -84,9 +112,25 @@ public:
 		}
 		return false;
 	}
-	size_t size()
+	size_t Size()
 	{
 		return _size;
+	}
+	void Print()
+	{
+		PNode pCur = nullptr;
+		for (size_t bucketNo = 0; bucketNo < _table.capacity(); ++bucketNo)
+		{
+			cout << "H[" << bucketNo << "]:";
+			pCur = _table[bucketNo];
+			while (pCur)
+			{
+				cout << pCur->_val << "--->";
+				pCur = pCur->_pNext;
+			}
+			cout <<"NULL"<< endl;
+		}
+		
 	}
 private:
 	void CheckCapacity()
@@ -94,7 +138,8 @@ private:
 		//当有效元素个数等于桶的个数时扩容
 		if (_size == _table.capacity())
 		{
-			HashBucket<T> newHB(_size * 2);
+			HashBucket<T> newHB(GetNextPrime(_table.capacity()));
+			//从0开始是因为_table底层结构为vector;
 			for (size_t i = 0; i < _table.capacity(); ++i)
 			{
 				PNode pCur = _table[i];
@@ -124,7 +169,7 @@ private:
 	}
 	void Clear()
 	{
-		for (int i = 0; i < _table.capacity(); ++i)
+		for (size_t i = 0; i < _table.capacity(); ++i)
 		{
 			PNode pCur = _table[i];
 			while (pCur)
@@ -134,18 +179,27 @@ private:
 				pCur = _table[i];
 			}
 		}
+		_size = 0;
 	}
 private:
-	vector<HashBucketNode<T>*> _table;
+	vector<PNode> _table;
 	size_t _size;
 };
 
 void TestHashBucket()
 {
 	HashBucket<int> hb(10);
-	cout << hb.size() << endl;
+	cout << hb.Size() << endl;
 	int array[] = { 3, 8, 4, 0, 7, 13, 33 };
 	for (auto& e : array)
 		hb.Insert(e);
-	cout << hb.size() << endl;
+	cout << hb.Size() << endl;
+	hb.Print();
+	hb.Erase(11);
+	hb.Erase(33);
+	if (nullptr == hb.Find(33))
+		cout << "33 is not in HashBucket" << endl;
+	hb.Print();
+	hb.~HashBucket();
+	cout<<hb.Size();
 }
