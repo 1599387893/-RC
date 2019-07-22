@@ -1,4 +1,7 @@
 #include"DList.h"
+#include<stdio.h>
+#include<stdlib.h>
+#include<assert.h>
 
 ListNode* BuyNewNode(LTDataType data)
 {
@@ -102,7 +105,7 @@ void ListPrint(List* pl)
 	printf("NULL\n");
 }
 
-void Test1()
+void  TestDList()
 {
 	List l;
 	ListInit(&l);
@@ -114,5 +117,5 @@ void Test1()
 	ListPrint(&l);
 	ListPopFront(&l);
 	ListPrint(&l);
-
+	ListDestory(&l);
 }

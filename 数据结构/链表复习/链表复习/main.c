@@ -1,6 +1,7 @@
-#include"SList.h"
+//#include"SList.h"
 //#include"SeqList.h"
 #include"DList.h"
+
 int main()
 {
 	//TestSeqList();

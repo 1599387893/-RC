@@ -1,7 +1,5 @@
 #pragma once
-#include<stdio.h>
-#include<stdlib.h>
-#include<assert.h>
+
 //------------------------带头的双向循环链表
 typedef int LTDataType;
 
@@ -42,4 +40,5 @@ void ListErase(List* pl, ListNode* pos);
 void ListPrint(List* pl);
 //
 //
+void  TestDList();
 

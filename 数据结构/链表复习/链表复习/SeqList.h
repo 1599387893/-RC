@@ -41,3 +41,4 @@ size_t Size(PSeqList ps);
 DataType find_elem(PSeqList ps, size_t pos);
 //¥Ú”°À≥–Ú±Ìƒ⁄»›
 void Print1(PSeqList ps);
+void TestSeqList();

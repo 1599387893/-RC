@@ -13,9 +13,9 @@
   <ItemGroup>
     <ClCompile Include="DList.c" />
     <ClCompile Include="DList.h" />
-    <ClCompile Include="main1.c" />
     <ClCompile Include="SeqList.c" />
     <ClCompile Include="SList.c" />
+    <ClCompile Include="Test.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SeqList.h" />
