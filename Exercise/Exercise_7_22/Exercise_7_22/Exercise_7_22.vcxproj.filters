@@ -15,28 +15,8 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="SList.c">
+    <ClCompile Include="源.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="DList.h">
-      <Filter>头文件</Filter>
-    </ClCompile>
-    <ClCompile Include="SeqList.c">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="DList.c">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="main1.c">
-      <Filter>源文件</Filter>
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="SList.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="SeqList.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
   </ItemGroup>
 </Project>

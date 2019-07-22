@@ -1,4 +1,9 @@
 #pragma once
+#include<assert.h>
+#include<stdlib.h>
+#include<stdio.h>
+#include<string.h>
+#include<malloc.h>
 
 #define MAX 100
 
@@ -14,7 +19,7 @@ typedef struct Stack
 //初始化
 void StackInit(Stack* s);
 //压栈
-void StackPush(Stack* s);
+void StackPush(Stack* s, DataType data);
 //出栈
 void StackPop(Stack* s);
 //获取栈顶元素

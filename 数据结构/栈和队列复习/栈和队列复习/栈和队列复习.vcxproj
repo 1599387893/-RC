@@ -64,6 +64,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="main.c" />
     <ClCompile Include="Queue.c" />
     <ClCompile Include="stack.c" />
   </ItemGroup>
