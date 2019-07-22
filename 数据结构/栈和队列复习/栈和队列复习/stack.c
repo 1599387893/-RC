@@ -17,7 +17,9 @@ void CheckCapacity(Stack* s)
 		DataType* newArr = (DataType*)malloc(sizeof(DataType)*newCapacity);
 		if (newArr == NULL)
 			assert("malloc faild\n");
-		memcpy(s->_array, newArr, sizeof(DataType)*s->_top);
+		memcpy(newArr,s->_array, sizeof(DataType)*s->_top);
+		free(s->_array);
+		s->_array = newArr;
 		s->_capacity = newCapacity;
 	}
 }
@@ -74,7 +76,7 @@ void StackDestory(Stack* s)
 	}
 }
 
-void TestStack()
+int main()
 {
 	Stack s;
 	StackInit(&s);
@@ -98,4 +100,5 @@ void TestStack()
 	printf("Empty = %d\n", StackEmpty(&s));
 	printf("Size = %d\n", StackSize(&s));
 
+	return 0;
 }

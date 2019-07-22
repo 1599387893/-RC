@@ -5,26 +5,36 @@
 #include<malloc.h>
 
 //---------------------------------用链表实现循环队列
-typedef int QDataType;
+typedef int QUDataType;
+
+typedef struct QueueNode
+{
+	struct QueueNode* _pNext;
+	QUDataType data;
+}Node;
 
 typedef struct Queue
 {
-	QDataType* _array;
-	QDataType* _capacity;
-	QDataType* _size;
+	Node* _front;
+	Node* _rear;
 }Queue;
 
 //初始化
-void QueueInit(Queue* q);
+void QueueInit(Queue* pq);
+//销毁
+void QueueDestory(Queue* pq);
+//创建新结点
+Node* BuyQueueNode(QUDataType x);
 //入队列
-void QueuePush(Queue* q, QDataType data);
+void QueuePush(Queue* pq, QUDataType x);
 //出队列
-void QueuePop(Queue* q);
-//队内有效元素个数
-int QueueSize(Queue* q);
+void QueuePop(Queue* pq);
+//输出队头元素
+QUDataType QueueFront(Queue* pq);
+//输出队尾元素
+QUDataType QueueBack(Queue* pq);
 //判空
-int QueueEmpty(Queue* q);
-//队头元素
-QDataType QueueFront(Queue* q);
-//队尾元素
-QDataType QueueBack(Queue* q);
+int QueueEmpty(Queue* pq);
+//队列中的有效元素个数
+int QueueSize(Queue* pq);
+void TestQueue();
