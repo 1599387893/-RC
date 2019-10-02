@@ -1,6 +1,7 @@
 #include<iostream>
 #include<memory>
 #include<string>
+#include<mutex>
 using namespace std;
 
 //智能指针：管理指针，自动释放资源
@@ -157,8 +158,11 @@ public:
 		return *_count;
 	}
 };
+
 //shared_ptr缺陷1:当new对象时，使用malloc申请空间，或者使用文件指针
-//shared_ptr缺陷2:可能会产生循环引用的问题
+//shared_pre缺陷2：线程不安全；
+//shared_ptr缺陷3:可能会产生循环引用的问题
+
 //缺陷1的解决方法：仿函数------使用：SharedPtr<int,Free<int>>  + DF()(_ptr);
 /*
 -----------------------------------------------------------------定制删除器
@@ -194,13 +198,29 @@ public:
 		}
 */
 
+//缺陷2的解决方法：添加互斥锁mutex
+/*
+	在访问临界资源的地方（临界区）加上锁；访问完后解锁。
+	在加锁时要注意：死锁问题；（使用原子变量--atomic_int，automic_bool，......）
+*/
+
+//缺陷3的解决方法：使用weak_ptr来解决问题，（但是weak_ptr不能单独管理资源，必须配合shared_ptr一起使用）
 
 //-----------------------------------------------weak_ptr模拟-------------------------------------
+//作用：解决shared_ptr中存在的循环引用的问题
+//原理：引用计数包含两个成员（_use 和 _weak）
+//											当_use等于0时释放对象内容的资源，当_weak等于0时释放这两个引用计数的资源；
+//缺陷：不可以独立管理资源
 template<class T>
 class WeakPtr
 {
 private:
 	T* _ptr;
+	int* _use;
+	int* _weak;
+public:
+	WeakPtr()
+	{}
 };
 
 

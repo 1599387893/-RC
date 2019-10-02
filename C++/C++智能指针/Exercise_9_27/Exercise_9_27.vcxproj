@@ -64,7 +64,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="shared_ptr.cpp" />
+    <ClCompile Include="unique_ptr.cpp" />
+    <ClCompile Include="weak_ptr.cpp" />
     <ClCompile Include="源.cpp" />
+    <ClCompile Include="auto_ptr.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
