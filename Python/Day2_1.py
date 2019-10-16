@@ -11,7 +11,7 @@ i = 0
 for i in range (100):
     print(i*i)
 '''
-
+'''
 #3
 
 for num in range (100,1000):
@@ -20,3 +20,4 @@ for num in range (100,1000):
     ge = num % 10
     if(bai**3+shi**3+ge**3 == num):
         print(num,end=' ')
+'''

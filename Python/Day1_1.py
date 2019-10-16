@@ -38,7 +38,7 @@ for i in range (1,10):
 '''
 
 
-
+'''
 #4
 
 sushu = []
@@ -50,7 +50,7 @@ for i in range (100,200):
         #print(i,end = ' ')
         sushu.append(i)
 print(sushu)
-
+'''
 
 
 
