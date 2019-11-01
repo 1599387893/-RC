@@ -16,8 +16,6 @@ private:
 private:
 	void move()
 	{
-		if (!s2.empty())
-			return;
 		int s = s1.size();
 		for (int i = 0; i < s; ++i)
 		{
@@ -36,55 +34,22 @@ public:
 	{
 		return s1.size() + s2.size();
 	}
-	//T& Front()
-	//{
-	//	if (Empty())
-	//		throw ( "Expression:deque iterator not dereferencable!");
-	//	if (s2.empty())
-	//		move();
-	//	return s2.top();
-	//}
-	//T& Back()
-	//{
-	//	if (Empty())
-	//		throw("Expression:deque iterator not dereferencable!");
-	//	if (s1.empty())
-	//		return s2.top();
-	//	return s1.top();
-	//}
-
-
-	//T& Front()
-	//{
-	//	if (Empty())
-	//		throw new exception("Expression:deque iterator not dereferencable!");
-	//	move();
-	//	if (s2.empty())
-	//		return s1.top();
-	//	return s2.top();
-	//}
-	//T& Back()
-	//{
-	//	if (Empty())
-	//		throw new exception("Expression:deque iterator not dereferencable!");
-	//	return s1.top();
-	//}
 	void Push(T data)
 	{
 		s1.push(data);
 	}
-	T& Pop()
+	T Pop()
 	{
-		if(Empty())
-			throw("Expression:deque empty before pop!");
-		move();
-		int ret;
-		if(s2.empty())
-			ret = s2.top();
-		else 
-			ret = s1.pop();
+		if (s2.empty() && s1.empty())
+			throw new exception("Queue Pop Error :Queue Is Empty()");
+		if (s2.empty())
+			move();
+		int ret = s2.top();
+		s2.pop();
 		return ret;
 	}
 	~Queue<T>(){}
 };
+
+
 
