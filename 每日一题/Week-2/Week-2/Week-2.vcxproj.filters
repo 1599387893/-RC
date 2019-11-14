@@ -18,5 +18,8 @@
     <ClCompile Include="Day1.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="Day2.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
