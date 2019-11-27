@@ -15,22 +15,10 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Day1.cpp">
+    <ClCompile Include="2.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="Day5.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="Day6.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="Day2.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="Day3.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="Day4.cpp">
+    <ClCompile Include="1.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
