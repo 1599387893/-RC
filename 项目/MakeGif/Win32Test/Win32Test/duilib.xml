@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<Window size="826,670">
+    <VerticalLayout width="826" height="670">
+        <HorizontalLayout width="823" height="36" bkcolor="#FF0000FF" />
+        <HorizontalLayout width="216" height="153" bkimage="C:\Users\administration\Desktop\CSDN二维码.png" />
+        <HorizontalLayout width="211" height="144" bkimage="C:\Users\administration\Desktop\Github二维码.png" />
+    </VerticalLayout>
+</Window>
