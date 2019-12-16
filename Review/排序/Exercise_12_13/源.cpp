@@ -116,15 +116,62 @@ void Heap_Sort(vector<int>& arr)
 	for (int i = arr.size()-1; i > 0; i--)
 		Erase(arr,i);
 }
-int Parition(vector<int>& arr, int  beg, int end)
+int Parition1(vector<int>& arr, int left, int right)
 {
-
+	int begin = left;
+	int end = right - 1;
+	int key = arr[right - 1];
+	while (begin < end)
+	{
+		while (begin < end && arr[begin] <= key)
+			begin++;
+		while (begin < end && arr[end] >= key)
+			end--;
+		if (begin < end)
+			swap(arr[begin], arr[end]);
+	}
+	if (arr[begin] != key)
+		swap(arr[begin], arr[right - 1]);
+	return begin;
 }
-void Q_Sort1(vector<int>& arr,int begin,int end)
+void Q_Sort1(vector<int>& arr,int left,int right)
 {
-	int mid = Parition(arr,begin,end);
-	Q_Sort1(arr, begin, mid - 1);
-	Q_Sort1(arr, mid+1,end);
+	int mid = 0;
+	if (left < right)
+	{
+		mid = Parition1(arr,left,right);
+		Q_Sort1(arr,left,mid);
+		Q_Sort1(arr,mid+1,right);
+	}
+}
+int Parition2(vector<int>& arr, int left, int right)
+{
+	int begin = left;
+	int end = right ;
+	int key = arr[right];
+	while (begin < end)
+	{
+		while (begin < end && arr[begin] <= key)
+			begin++;
+		if (begin < end)
+			arr[end] = arr[begin];
+		while (begin < end && arr[end] >= key)
+			end--;
+		if (begin < end)
+			arr[begin] = arr[end];
+	}
+	arr[begin] = key;
+	return begin;
+}
+void Q_Sort2(vector<int>& arr,int left,int right)
+{
+	int mid = 0;
+	if (left < right)
+	{
+		mid = Parition2(arr,left,right);
+		Q_Sort2(arr,left,mid-1);
+		Q_Sort2(arr,mid+1,right);
+	}
 }
 int main()
 {
@@ -136,8 +183,8 @@ int main()
 	//Bubblo_Sort(arr);
 	//Heap_Sort(arr);
 
-	Q_Sort1(arr,0,arr.size()-1); //hoare法
-	//Q_Sort2(arr); //挖坑法
+	//Q_Sort1(arr, 0, arr.size() - 1); //hoare法
+	Q_Sort2(arr,0,arr.size()-1); //挖坑法
 	//Q_Sort3(arr); //前后指针法
 	//Merge_sort(arr);
 	Print(arr);
