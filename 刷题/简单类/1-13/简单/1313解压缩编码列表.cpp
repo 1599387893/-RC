@@ -1,3 +1,4 @@
+#if 0
 class Solution {
 public:
 	vector<int> decompressRLElist(vector<int>& nums) {
@@ -10,3 +11,4 @@ public:
 		return ret;
 	}
 };
+#endif

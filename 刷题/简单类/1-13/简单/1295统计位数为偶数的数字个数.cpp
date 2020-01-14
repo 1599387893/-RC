@@ -1,3 +1,4 @@
+#if 0
 class Solution {
 public:
 	int findNumbers(vector<int>& nums) {
@@ -17,3 +18,4 @@ public:
 		return count;
 	}
 };
+#endif

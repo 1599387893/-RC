@@ -1,3 +1,4 @@
+#if 0
 class Solution {
 public:
 	int subtractProductAndSum(int n) {
@@ -12,3 +13,4 @@ public:
 		return mul - add;
 	}
 };
+#endif

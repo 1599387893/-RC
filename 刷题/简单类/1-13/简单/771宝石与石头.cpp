@@ -1,3 +1,4 @@
+#if 0
 class Solution {
 public:
 	int numJewelsInStones(string J, string S) {
@@ -21,3 +22,4 @@ public:
 		return mycount;
 	}
 };
+#endif
