@@ -67,7 +67,10 @@ int main()
 	return 0;
 }
 #endif
+
 //方法二
+
+#if 0
 #include<iostream>
 #include<algorithm>
 using namespace std;
@@ -84,5 +87,37 @@ int main()
 		res = max(res, sum);
 	}
 	cout << res << endl;
+	return 0;
+}
+#endif
+
+//24点
+#include<iostream>
+#include<vector>
+using namespace std;
+bool Is24(vector<double>& nums, double result)
+{
+	if (nums.empty())
+		return result == 24;
+	for (int i = 0; i < nums.size(); ++i)
+	{
+		vector<double> temp(nums);
+		temp.erase(temp.begin() + i);
+		if (Is24(temp, result + nums[i]) || \
+			Is24(temp, result - nums[i]) || \
+			Is24(temp, result*nums[i]) || \
+			Is24(temp, result / nums[i]))
+			return true;
+	}
+	return false;
+}
+int main()
+{
+	vector<double> nums(4);
+	while (cin >> nums[0] >> nums[1] >> nums[2] >> nums[3])
+		if (Is24(nums, 0))
+			cout << "true" << endl;
+		else
+			cout << "false" << endl;
 	return 0;
 }
