@@ -66,7 +66,7 @@
   <ItemGroup>
     <ClCompile Include="215数组中第K个最大元素.cpp" />
     <ClCompile Include="347前K个高频元素.cpp" />
-    <ClCompile Include="前K个高频单词.cpp" />
+    <ClCompile Include="692前K个高频单词.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
