@@ -15,16 +15,22 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="删除中间节点.cpp">
+    <ClCompile Include="链表相交.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="分割链表.cpp">
+    <ClCompile Include="环路检测(环形链表中的入口).cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="链表求和.cpp">
+    <ClCompile Include="最小高度树(数组转AVL树).cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="回文链表.cpp">
+    <ClCompile Include="特定深度节点链表(树每层作为一个链表).cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="检查平衡性(检查树是否为AVL树).cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="合法二叉搜索树.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

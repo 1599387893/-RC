@@ -11,8 +11,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{03072671-DC52-4639-9BA2-71D92C4DD56F}</ProjectGuid>
-    <RootNamespace>My2_19</RootNamespace>
+    <ProjectGuid>{95F79599-095E-4A69-B641-71D66E4CA725}</ProjectGuid>
+    <RootNamespace>My2_20</RootNamespace>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -64,10 +64,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="分割链表.cpp" />
-    <ClCompile Include="删除中间节点.cpp" />
-    <ClCompile Include="回文链表.cpp" />
-    <ClCompile Include="链表求和.cpp" />
+    <ClCompile Include="合法二叉搜索树.cpp" />
+    <ClCompile Include="最小高度树(数组转AVL树).cpp" />
+    <ClCompile Include="检查平衡性(检查树是否为AVL树).cpp" />
+    <ClCompile Include="特定深度节点链表(树每层作为一个链表).cpp" />
+    <ClCompile Include="环路检测(环形链表中的入口).cpp" />
+    <ClCompile Include="链表相交.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
