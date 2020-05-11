@@ -1,0 +1,50 @@
+										一		让自己习惯C++
+
+条款01："视C++为一个语言联邦(View C++ as a federation of languages)"
+	C++并不是一个带有一组守则的一体语言，他是从四个次语言(C/Object-Oriented C++/Template C++/STL)组成的联邦政府.
+	
+	
+条款02："尽量以const,enum,inline替换 #define"(Prefer consts,enums and inlines to # defines)
+	尽量以编译器替换预处理器
+	*
+	*对于单纯常量，最好以const对象过着enum替换#define
+	*对于形似函数的宏，最好改用inline函数替换#define
+	*
+	1.对于浮点常量而言，使用常量可能比使用#define导致较小量的代码，因为预处理器会盲目的进行宏替换导致目标码出现多份。而改用常量不会出现着这种情况。
+	 （注意：a.定义常量指针；建议定义为 const std::string  str("...")
+			 b.class专属常量：当一个常量为class专属常量优势staic且为整数类型需要提供定义式在实现文件(.c/.cpp)中，而非头文件）
+    2.不可以利用#define创建一个class专属常量，因为#define并不重视作用域，不可以提供封装性。
+	3.当编译器(错误的)不允许"static整型class常量"完成"in class出值设定"时，可改用所谓的“the enum hack”补偿做法。
+		原理：“一个属于枚举类型的数值可权充ints被使用”
+	
+
+条款03：”尽可能使用const“（Use const whenever possible）
+	*
+	*编译器强制实施bitwise constness，到那时编写程序时应该使用“概念上的常量性”；
+	*当const和non-const成员函数有着实质等价的实现时，令non-const版本调用const版本可避免代码重复；
+	*
+	1.const关键字出现在‘*’的左边，表示被指物是常量(即const修饰指针指向的数据，所以不可以通过指针修改数据，但是指针的指向可以修改)；
+	  const关键字出现在‘*’的右边，表示指针自身是常量(即const修饰该指针，可以通过指针修改指向的数据，但是指针的指向不可以修改)；
+	2.声明STL中的迭代器为const时，相当于声明(T* const)（此时该迭代器不可以指向其他）；
+	  如果希望迭代器所指的东西不可被改动时，相当于(const T*指针)，可以使用const_iterator；
+	3.STL中容器的non-const operator[]的返回类型是个值引用(reference to T)，不是T类型，这样才可以修改（例如： string str("abc"); str[0]='a'）;
+	4.mutable关键字是用来突破const关键字限制的(即被mutable修饰的成员变量可以在const成员函数中被修改)；
+	5.const有两个概念 bitwise constness(physical constness物理常量性) 和 logical constness(逻辑常量性)；
+	6.常量性转除：通过const_cast/static_cast进行类型转换，使用非const对象调用const函数；
+	
+	
+条款04："确认对象被使用前已先被初始化"(Make sure that object are initialized before they're used)
+	*
+	*为内置型对象进行手动初始化，因为C++不保证初始化他们；
+	*构造函数最好使用成员初始化列表，不要再构造函数本体内使用赋值操作。
+	*为免除“跨编译单元的初始化次序”问题，使用local static对象替换non-local static对象
+	*
+	1.C++规定：对象的成员变量的初始化动作发生在进入构造函数本体之前。
+	2.无初始化列表的构造函数在进入构造函数体之前会先调用default构造函数为成员变量赋初值，然后才进入构造函数体内，如果在构造函数体内在对成员变量赋新值，默认构造函数的一切作为都浪费了；
+	  初始化列表中针对各个成员变量而设的实参，会被拿去作为各成员变量的构造函数(copy构造函数)的实参；
+	3.类的成员变量总是以其声明次序被初始化，与初始化列表的顺序无关。
+	4.C++对于“定义于不同的编译单元内的non-local static对象”的初始化次序并无明确定义；
+	  其中：不同的编译单元：两个不同的源码文件（所谓编译单元指生成带你一目标文件的源码，一般由单一源码文件和其所包含的头文件组成）
+	        non-local static对象：非函数内的static对象（范围：global的，定义于namespace作用域内的，在类内的，file作用域内的static对象）
+	  解决这个问题的方法：
+		将每个non-local static对象搬到自己的专属函数内即，将其声明为private权限的函数；（单例模式的实现手法）
