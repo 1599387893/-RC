@@ -1,0 +1,73 @@
+二		构造/析构/赋值运算
+
+
+条款05：“了解C++默默编写并调用那些函数”(Know what functions C++ silently writes and calls.)
+	*
+	*编译器可以暗自为类创建default构造函数，copy构造函数，copy assignment操作符以及析构函数
+	*
+
+
+条款06：“若不想使用编译器自动生成的函数，就要明确拒绝”(Explicitly disallow the use of compiler-generated functions you do no want)
+	*
+	*为驳回编译器自动(暗自)提供的机能(动作)，可将相应的成员函数声明为private并且不予实现。使用Uncopyable这样的base class也是一种方法
+	*
+	1.将类中不想被调用的成员函数声明为private而且故意不实现它；（如果只是声明为private的话，类中的其他成员函数或者friend函数还是可以访问到它）
+	2.将类中不想被调用函数(比如：copy构造函数和copy assignment操作符重载函数)设计成private，但不是再该类中，而是在一个专门为了阻止copying动作而设计的base class（基类）内，然后让该类继承自那个基类；
+
+
+条款07：“为多态基类声明virtual析构函数”(Declare destructors virtual in polymorphic base classes)
+	*
+	*polymorphic(带有多态性质的)base classes应该声明一个virtual析构函数。如果class带有任何virtual函数，他就应该有一个virtual析构函数。
+	*classes的设计目的如果不是作为base classes使用，或者不是为了具备多态性，就不该声明virtual析构函数。
+	*
+	1.当derived class对象经由一个base class指针而被删除，如果该base class带着一个non-virtual析构函数，其结果未有定义（实际执行时derived class对象的派生部分没有被销毁）；
+	2.任何class只要带有virtual函数都几乎确定应该也有一个virtual析构函数；
+	3.如果一个类不被作为base class时，令他的析构函数为virtual往往是个馊主意；(P42)
+	  因为：一个类中包含virtual函数时，他的对象的体积会增加(会增加一个虚表指针vptr),这样生成的对象大小会增加50%~100%！
+			而且这样的对象不再能够塞入一个64-bit的缓存器，因此就不可以把它传递给(或者接收)其他语言(其他语言没有vptr)所写的函数，也因此不具有移植性；
+	4.“给base classes一个virtual析构函数”，这个规则只适用于polymorphic(带多态性质的)base classes身上，
+	   这样的设计目的是为了：“通过base class接口处理derived class对象”。
+	5.并不是所有的base class的设计都是为了多态，比如标准string和STL容器不被设计作为base classes使用。
+
+
+条款08：“别让异常逃离析构函数”(Prevent exception from leaving destructors)
+	*
+	*析构函数绝对不要抛出异常。如果一个被析构函数调用的函数可能抛出异常，析构函数应该捕捉任何异常，然后吞下它们(不传播)或结束程序
+	*如果客户需要堆某个操作函数云信号期间抛出的异常作出反应，那么class应该提供一个普通函数(而非在析构函数中)执行该操作。
+	*
+	1.C++不喜欢析构函数吐出异常！
+	2.如果程序遭遇一个“于析构期间发生的错误”后无法继续执行，“强迫结束程序”(比如：调用abort)是个合理选项，或者将异常吞掉。
+	3.如果某个操作可能在失败时抛出异常，而又存在某种需要必须处理该异常，那么这个异常必须来自析构函数以外的某个函数。
+
+
+条款09：“绝不再构造和析构过程中调用virtual函数”(Nerve call virtual functions during construction or destruction.)
+	*
+	*在构造和析构卡紧不要调用 virtual函数，因为这类调用从不下降至derived class（比起当前执行构造函数和析构函数的那层）
+	*
+	1.基类构造期间virtual函数不会下降到派生类阶层。(在基类构造期间，virtual函数不是virtual函数)
+	2.不能在构造函数中调用虚函数原因：
+		a.继承体系中，基类的构造函数执行更早于派生类构造函数，当基类的构造函数执行的时候，派生类的构造函数尚未初始化，如果此时调用的虚函数是派生类的，那么就有可能在这个虚函数中调用派生类的成员变量，此时的成员变量未初始化，就会产生一些未知的错误。
+		b.当一个派生类对象的构造函数中派生部分为被初始化的时候，C++视他们不存在，在析构函数中一样；
+
+
+条款10：“令operator=返回一个reference to *this”(Have assignment operators return a reference to *this)
+	*
+	*令赋值(assignment)操作符返回一个reference to *this
+	*
+
+
+条款11：“在operator=中处理"自我赋值"”(Headle assignment to self in operator=)
+	*
+	*确保当对象自我赋值时operator=有良好行为。其中计数包括比较“来源对象”和目标对象的地址，精心周到的语句顺序，以及copy-and-swap
+	*确定任何函数如果操作一个以上的对象，而其中多个对象是同一个对象时，其行为仍然正确。
+	*
+
+
+条款12：“复制对象时勿忘其每一个成分”(Copy all parts of an object)
+	*
+	*Copying函数应该确保复制“复制对象内的所有成员变量”及“所有的base class成分”。
+	*不要尝试以某个copying函数实现另一个copying函数。应该将共同机能放进第三个函数中，并由两个copying函数共同调用。
+	*
+	1.任何时候只要程序员担任起“为derived class编写copying函数”的重大责任，必须很小心的复制其base clsss成分。那些成分往往是private，所以程序员无法直接访问它们，因此程序员应该让derived class的copying函数调用相应的base class函数；
+	2.不应该让赋值运算符(copy assignment)重载函数调用copy构造函数。反之，亦然。
+	3.如果说copy构造函数和copy assignment操作符有相近的代码，消除重复代码的做法是，建立一个心得成员函数给两者调用。这样的函数往往是private的而且长被命名为init。
