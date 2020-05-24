@@ -1,0 +1,91 @@
+														四		设计与声明
+										
+
+条款18：“让接口容易被正确使用，不易被误用”(Make interfaces east yo use correctly an hard to use incoorectly.)
+	*
+	*好的接口很容易被正确使用，不容易被误用。
+	*“促进正确使用”的办法包括接口的一致性，以及与内置类型的行为兼容。
+	*“阻止误用”的办法包括建立新类型，限制类型上的操作，束缚对象值，以及消除客户的资源管理责任。
+	*tr1::shared_ptr支持定值型删除器(custom deleter)。这可以防范DLL(动态连接程序库)问题，可被用来自动解除互斥锁
+	*
+	1.tr1::shared_ptr有一个特别好的性质：它会自动使用它的“每个指针专属的删除器”，而且这个删除器是以virtual形式调用的。
+	2.tr1::shared_ptr可以很好的“降低客户错误”
+	
+	
+条例19:“设计class犹如设计type”(Treat class design as tyoe design.)
+	*
+	*Class的设计就是type的设计。在定义一个新type之前，请确定你已经考虑本条款覆盖的所有讨论主题。（P84）
+	*
+
+
+条例20：“宁以pass-by-reference-to-const替换pass-bt-value”(Prefer pass-by-reference-to-const to pass-by-value.)
+	*
+	*尽量以pass-by-reference-to-const替换pass-by-value。前者通常比较高效，并可以避免切个问题(slicing problem)；
+	*以上规则并不适用与内置类型，以及STL的迭代器和函数对象，对他们而言，pass-by-value往往比较适当。
+	*
+	1.缺省情况下C++以by value(值传递)方式(一个继承自C的方式)传递对象至(或来自)函数。
+	2.以by reference方式传递参数也可以避免slicing(对象切割)问题。当一个派生类对象以by value方式传递并被视为一个基类对象，基类的copy构造函数会被调用，而“造成此对象行为像个派生类”的那些特性化性质全被切割掉，仅仅只剩下一个base class对象。
+	3.在C++编译器的底层，reference往往是以指针实现实现出来的，因此pass by reference通常意味着真正传递的是指针。
+	4.对于内置类型pass by value往往比pass by reference的效率高些。
+	5.“pass-by-value”的唯一对象就是内置类型和STL的迭代器和函数对象。
+	
+	
+条款21：“必须返回对象时，别妄想返回其reference.”(Don't try to return a reference when you must return an object.)
+	*
+	*绝不要返回pointer或reference指向一个local stack对象，
+		，或返回reference指向一个heap-allocated对象，
+		，或返回pointer或reference指向一个local static对象而有可能同时需要多个这样的对象。
+	*
+	1.当你必须在“返回一个reference和返回一个object”之间抉择时，你的工作就是挑出行为正确的那个。
+	
+	
+条款22：“将成员变量声明为private”(Delcare data members private.)
+	*
+	*切记将成员变量声明为private。这可以赋予客户访问数据的一致性，可细微划分访问控制，允诺约束条件获得保证，并提供给class作者以充分的实现弹性。
+	*protected并不比public更具封装性
+	*
+	1.将成员变量声明为private：一致性(条款18)，控制精确性，封装性。
+	2.将成员变量隐藏在函数接口的背后，可以为“所有可能的实现”提供弹性。
+	3.某些东西的封装性与“当其内容改变时可能造成的代码破坏量”成反比。
+	4.protected成员变量的封装性并不一定高过public成员变量。
+	5.从封装角度来说，其实只有两种访问权限：private(提供封装)和其他(不提供封装);
+
+
+条款23：“宁以non-member,non-friend替换member函数”(Prefer non-member non-friend functions to member functions.)
+	*
+	*宁可拿non-member non-friend函数替换member函数。这样做可以增加封装性，包裹弹性(packaging flexiblity)和机能扩充性。
+	*
+	1.愈多东西被封装，愈少人可以看到它。而愈少人看到它，我们就有愈大的弹性其变化它。(封装可使我们能够改变事物而只影响部分客户)
+	2.愈少代码可以看到数据(访问数据)，愈多的数据可被封装，而我们也就愈能自由地改变对象数据。（愈多函数可以访问数据，数据的封装性就愈低）
+	3.对于一个member函数和一个non-member,non-friend函数，两者提供相同功能，封装性更好的是“non-member,non-friend函数”，因为它并不增加“能够访问类内的private成分”的函数数量。
+		注意：第一，这个论述只适用于non-member non-friend函数。（即：这个结论的前提是：成员函数和非成员非友元函数的比较）
+			  第二，只因在意封装性而让函数“成为class的non-member”，并不意味它“不可以是另一个class的member”。
+	4.将所有便利函数放在多个头文件内但隶属同一个命名空间，意味着客户可以轻松扩展这一组便利函数。
+	
+	
+条款24：“若所有参数皆需类型转换，请为此采用non-member函数”(Declare non-member functions when type conversions should apply to all parameters.)
+	*
+	*如果你需要为某个函数的所有参数(包括被this指针所指的那个隐喻参数)进行类型转换，那么这个函数必须是个non-member。
+	*
+	1.隐式类型转换(implicit type conversion)
+	2.只有当参数被列于参数列(parameter list)内，这个参数才是隐式类型转换的合格参与者。
+	3.member函数的反面是non-member函数，不是friend函数。
+	
+	
+条款25：“考虑写出一个不抛异常的swap函数”(Consider support for a non-throwing swap.)
+	*
+	*当std::swap对你的类型效率不高时，提供一个swap成员函数，并确定这个函数不抛出异常。
+	*如果你提供一个member swap，也该提供一个non-member swap用来调用前者。对于classes(而非templates)，也请特化std::swap.
+	*调用swap时应针对std::swap使用using声明式，然后调用swap并且不带任何“命名空间修饰符”。
+	*为“用户定义类型”进行的std templates全特化是好的，但千万不要尝试在std内加入某些对std而言全新的东西。
+	*
+	1.swap函数的缺省版本是以copy构造函数和copy assignment操作符为基础。
+	2.“pimpl手法”(pointer to implementation)。
+	3.所有STL容器都提供有public swap成员函数和std::swap特化版本(用以调用前者)。(P108)
+	4.C++只允许对class templates偏特化，再function templates身上偏特化是行不通的。
+	5.当需要偏特化一个function template时，常用做法是：添加一个重载版本。（注意：程序员可以全特化std内的templates，但不可以添加新的templates到std中。）
+	6.如果不想使用缺省版的swap函数可以使用以下方法：
+		a.提供一个public swap成员函数，让他高效地置换你的类型的两个对象值。
+		b.在你的class或template所在的命名空间内提供一个non-member swap,并令他调用上述swap成员函数。
+		c.如果你正在写一个class(而非class template)，为你的class特化std::swap。并令它调用你的swap成员函数。
+		最后，如果调用swap，请确定包含一个using声明式，以便让std::swap在函数内可见，然后不加任何namespace修饰符，赤裸裸的调用swap。
