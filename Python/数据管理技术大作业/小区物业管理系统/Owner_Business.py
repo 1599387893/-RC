@@ -58,7 +58,9 @@ def Check_Announcement_management():
     '''
     查看公告
     '''
-    with io.open('Announcement.txt','a',encoding='utf-8') as f:
+    with io.open('Announcement.txt','r',encoding='utf-8') as f:
+        print('公告'.center(50))
         for line in f:
             print(line)
+    time.sleep(5)
     

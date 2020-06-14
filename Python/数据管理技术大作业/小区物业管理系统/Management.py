@@ -163,26 +163,46 @@ def Owner_management():
                 line = str(line).split(',')
                 print('ID: ', line[0],'Name: ',line[1],'Age: ',line[3],'Phone: ',line[4],'HouseNumber: ',line[5],'Property-cost: ',line[6],'Park: ',line[7],'Park-cost: ',line[8])
 
+
+def QSort(list_sort,n):
+    
+
 def Cost_management():
     '''
     费用管理
     '''
     while True:
         n = int(input('请选择需要查看的费用类型： 1.物业费  2.停车费 0.退出   :'))
+        list_sort = []
         if n==1 :
             print('未缴纳物业费业主信息：')
             with io.open('E:\\提交代码\\-RC\\Python\\数据管理技术大作业\\小区物业管理系统\\Owner.txt','r',encoding='utf-8') as f:
                 for line in f:
-                    line = str(line).split(',')
-                    if int(line[6]) > 0 :
-                        print('ID: ', line[0],'Name: ',line[1],'Phone: ',line[4],'HouseNumber: ',line[5],'Property-cost: ',line[6])
+                    temp = str(line).split(',')
+                    if int(temp[6]) > 0 :
+                        list_sort.append(line)
+            if len(list_sort) == 0:
+                print('暂无未缴物业费业主')
+                continue
+            list_sort = QSort(list_sort,6)
+            for info in list_sort:
+                info = str(info).split(',')
+                print('ID: ', line[0],'Name: ',line[1],'Phone: ',line[4],'HouseNumber: ',line[5],'Property-cost: ',line[6])
+
         elif n==2 :
             print('未缴纳停车费费业主信息：')
             with io.open('E:\\提交代码\\-RC\\Python\\数据管理技术大作业\\小区物业管理系统\\Owner.txt','r',encoding='utf-8') as f:
                 for line in f:
-                    line = str(line).split(',')
-                    if int(line[8] > 0):
-                        print('ID: ', line[0],'Name: ',line[1],'Phone: ',line[4],'HouseNumber: ',line[5],'Park-cost: ',line[8])
+                    temp = str(line).split(',')
+                    if int(temp[8] > 0):
+                        list_sort.append(line)
+            if len(list_sort) == 0:
+                print('暂无未缴停车费业主')
+                continue
+            list_sort = QSort(list_sort,8)
+            for info in list_sort:
+                info = str(info).split(',')
+                print('ID: ', line[0],'Name: ',line[1],'Phone: ',line[4],'HouseNumber: ',line[5],'Park-cost: ',line[8])
         else:
             return
 

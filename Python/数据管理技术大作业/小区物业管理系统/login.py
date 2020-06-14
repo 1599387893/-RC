@@ -33,6 +33,8 @@ def Admin():
         else:
             break
     while True:
+        os.system('cls')
+        print('管理员你好！！！')
         print('功能选择: 1，管理物业员工信息   2. 管理业主信息')
         print('          3，各种费用查看           4. 车位管理')
         print('          5，公告管理           6. 退出')
@@ -76,6 +78,7 @@ def Owner():
     while True:
         time.sleep(0.5)
         os.system('cls')
+        print('业主你好！')
         print('功能选择: 1.缴纳费用     2.查看个人信息')
         print('         3.查看公告     4.退出')
         chs = int(input('请选择：'))
