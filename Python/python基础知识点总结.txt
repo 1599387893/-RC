@@ -121,5 +121,3 @@
 			迭代器可以作用于for循环，还可以被next()函数不断调用并返回下一个值，直到抛出StopIteration异常。
 			可以将list,dict,str等Iterable通过iter()函数获取一个Iterator对象。
 	
-	
-	
